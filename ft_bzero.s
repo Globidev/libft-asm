@@ -1,0 +1,13 @@
+section .text
+global _ft_bzero
+
+;rdi -> void * ptr
+;rsi -> size_t size
+
+_ft_bzero:
+	mov rcx, rsi
+l1:
+	mov byte [rdi], 0
+	inc rdi
+	loop l1
+	ret
