@@ -3,7 +3,7 @@ LIB_NAME		=	fts
 SRC_DIR			=	srcs
 SRC				=	ft_bzero.s		\
 					ft_puts.s		\
-					ft_isalpha.s
+					ft_isalpha.s	\
 					ft_strlen.s		\
 					ft_toupper.s 	\
 					ft_tolower.s
