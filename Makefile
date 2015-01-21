@@ -14,7 +14,8 @@ TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
 TESTS_SRC		=	main.cpp \
 					simple/bzero.cpp \
-					simple/is_alpha.cpp \
+					simple/isalpha.cpp \
+					simple/isdigit.cpp \
 					simple/strlen.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 

@@ -15,7 +15,7 @@ void    test(int c) {
     assert(systemCall == betonniereCall);
 }
 
-void test_is_alpha() {
+void test_isalpha() {
     for (int i = 0; i <= (2 << sizeof(char)); i++)
         test(i);
 }
