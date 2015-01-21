@@ -19,11 +19,14 @@ l1:
 
 cat:
     cmp     byte [rsi], 0
-    je      ret1
-    mov     byte [rdi], sil
+    je      end
+    mov     r8, [rsi]
+    mov     byte [rdi], r8b
     inc     rdi
     inc     rsi
     jmp     cat
 
+end:
+    mov     byte [rdi], 0
 ret1:
     ret

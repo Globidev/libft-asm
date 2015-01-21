@@ -1,38 +1,27 @@
 #include <iostream>
 #include <cstring>
-#include <assert.h>
+#include <cassert>
 
 extern "C" {
-    char *ft_strcat(char *dest, char *src);
+    char *ft_strcat(char *dest, const char *src);
 }
 
-void	test_strcat()
+template <size_t n1, size_t n2>
+static void test_one(const char (&s1)[n1], const char (&s2)[n2])
 {
-	char	*systemCall;
-	char	*betonicCall;
+    char dest[n1 + n2 - 1];
+    char ft_dest[n1 + n2 - 1];
 
-	char	*dest = (char*)malloc(11);
-	dest[0] = 't';
-	dest[1] = 'e';
-	dest[2] = 's';
-	dest[3] = 't';
-	dest[4] = '\0';
-	char	src[] = "reussi";
+    std::memcpy(dest, s1, n1);
+    std::memcpy(ft_dest, s1, n1);
+    ::strcat(dest, s2);
+    ::ft_strcat(ft_dest, s2);
+    assert (!std::memcmp(dest, ft_dest, n1 + n2 - 1));
+}
 
-	char	*dest1 = (char*)malloc(11);
-	dest1[0] = 't';
-	dest1[1] = 'e';
-	dest1[2] = 's';
-	dest1[3] = 't';
-	dest1[4] = '\0';
-	char	src1[] = "reussi";
-
-
-	systemCall = strcat(dest, src);
-	betonicCall = ft_strcat(dest1, src1);
-
-	std::cout << systemCall << std::endl;
-	std::cout << betonicCall << std::endl;
-
-	assert(systemCall == betonicCall);
+void    test_strcat()
+{
+    test_one("a", "b");
+    test_one("Hello", " World!");
+    test_one("", "");
 }
