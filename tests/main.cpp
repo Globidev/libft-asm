@@ -16,6 +16,8 @@ static const test_map_t TEST_MAP = {
     { "isalpha"s, test_isalpha },
     { "strlen"s, test_strlen },
     { "isdigit"s, test_isdigit },
+    { "strcat"s, test_strcat },
+    { "isascii"s, test_isascii }
 };
 
 static void show_usage(const std::string & prog_name)
