@@ -1,7 +1,7 @@
 # Libftasm
 
 ## Building
-`make` -> builds libfts.a
+`make` -> builds libfts.a  
 `make tests` -> builds the test suite
 
 ## Contributing
