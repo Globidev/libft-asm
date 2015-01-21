@@ -8,10 +8,14 @@ SRC				=	ft_bzero.s		\
 					ft_strlen.s		\
 					ft_toupper.s 	\
 					ft_tolower.s	\
+					ft_memset.s		\
+					ft_memcpy.s		\
+					ft_strdup.s		\
 					ft_strcat.s		\
 					ft_isascii.s	\
 					ft_memset.s		\
-					ft_isprint.s
+					ft_isprint.s	\
+					ft_isascii.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
@@ -21,10 +25,10 @@ TESTS_SRC		=	main.cpp			\
 					simple/bzero.cpp	\
 					simple/strlen.cpp	\
 					simple/memset.cpp	\
+					simple/memcpy.cpp	\
 					simple/puts.cpp		\
 					simple/isalpha.cpp	\
-					simple/isdigit.cpp	\
-					simple/strlen.cpp	\
+					simple/strdup.cpp	\
 					simple/strcat.cpp	\
 					simple/isascii.cpp	\
 					simple/isdigit.cpp	\

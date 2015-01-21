@@ -16,10 +16,11 @@ static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
     { "strlen"s, test_strlen },
     { "memset"s, test_memset },
+    { "memcpy"s, test_memcpy },
     { "puts"s, test_puts },
     { "isalpha"s, test_isalpha },
-    { "strlen"s, test_strlen },
     { "isdigit"s, test_isdigit },
+    { "strdup"s, test_strdup },
     { "strcat"s, test_strcat },
     { "isascii"s, test_isascii },
     { "isprint"s, test_isprint }
