@@ -6,7 +6,7 @@
 /*   By: gudepard <gudepard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 22:45:40 by gudepard          #+#    #+#             */
-/*   Updated: 2015/01/21 00:02:04 by gudepard         ###   ########.fr       */
+/*   Updated: 2015/01/21 11:57:55 by gudepard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void ft_bzero(void *, size_t);
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	int i;
 	char b[5] = { 1, 1, 1, 1, 1 };
 
