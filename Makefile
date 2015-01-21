@@ -2,14 +2,16 @@ NAME			=	libfts.a
 LIB_NAME		=	fts
 SRC_DIR			=	srcs
 SRC				=	ft_bzero.s		\
-					ft_puts.s
+					ft_puts.s		\
+					ft_isalpha.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
 TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
 TESTS_SRC		=	main.cpp \
-					simple/bzero.cpp
+					simple/bzero.cpp \
+					simple/is_alpha.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++
