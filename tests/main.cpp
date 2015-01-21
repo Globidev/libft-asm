@@ -19,9 +19,10 @@ static const test_map_t TEST_MAP = {
     { "memcpy"s, test_memcpy },
     { "puts"s, test_puts },
     { "isalpha"s, test_isalpha },
-    { "strlen"s, test_strlen },
     { "isdigit"s, test_isdigit },
     { "strdup"s, test_strdup },
+    { "strcat"s, test_strcat },
+    { "isascii"s, test_isascii }
 };
 
 static void show_usage(const std::string & prog_name)
