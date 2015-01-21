@@ -10,8 +10,12 @@
 using test_map_t = std::map<std::string, std::function<void ()>>;
 using namespace std::string_literals;
 
+static const auto ALL_STRING = "all"s;
+
 static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
+    { "strlen"s, test_strlen },
+    { "memset"s, test_memset },
     { "puts"s, test_puts },
     { "isalpha"s, test_isalpha },
     { "strlen"s, test_strlen },
@@ -32,6 +36,15 @@ static void show_usage(const std::string & prog_name)
     std::cerr << "]" << std::endl;
 }
 
+static void run_all_tests()
+{
+    for (auto test_it: TEST_MAP)
+    {
+        test_it.second();
+        std::cout << test_it.first << ": OK" << std::endl;
+    }
+}
+
 int main(int ac, char **av)
 {
     std::srand(std::time(nullptr));
@@ -45,14 +58,19 @@ int main(int ac, char **av)
 
     for (auto arg: args)
     {
-        auto test_it = TEST_MAP.find(arg);
-        if (test_it != TEST_MAP.end())
-        {
-            test_it->second();
-            std::cout << arg << ": OK" << std::endl;
-        }
+        if (arg == ALL_STRING)
+            run_all_tests();
         else
-            std::cerr << "Unknown test: " << arg << std::endl;
+        {
+            auto test_it = TEST_MAP.find(arg);
+            if (test_it != TEST_MAP.end())
+            {
+                test_it->second();
+                std::cout << arg << ": OK" << std::endl;
+            }
+            else
+                std::cerr << "Unknown test: " << arg << std::endl;
+        }
     }
 
     return 0;

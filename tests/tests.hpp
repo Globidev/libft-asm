@@ -7,3 +7,4 @@ void test_isdigit();
 void test_strlen();
 void test_strcat();
 void test_isascii();
+void test_memset();
