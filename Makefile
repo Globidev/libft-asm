@@ -1,7 +1,8 @@
 NAME			=	libfts.a
 LIB_NAME		=	fts
 SRC_DIR			=	srcs
-SRC				=	ft_bzero.s
+SRC				=	ft_bzero.s		\
+					ft_puts.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
