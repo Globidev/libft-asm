@@ -16,7 +16,7 @@ static void test_one(Generator generator)
 	std::generate(buff2, buff2 + n, generator);
 
 	ft_bzero(buff1, mem_size);
-	ft_bzero(buff2, mem_size);
+	::bzero(buff2, mem_size);
 
 	assert(!std::memcmp(buff1, buff2, mem_size));
 }
