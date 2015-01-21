@@ -10,7 +10,8 @@ SRC				=	ft_bzero.s		\
 					ft_tolower.s	\
 					ft_strcat.s		\
 					ft_isascii.s	\
-					ft_memset.s
+					ft_memset.s		\
+					ft_isprint.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
@@ -26,7 +27,8 @@ TESTS_SRC		=	main.cpp			\
 					simple/strlen.cpp	\
 					simple/strcat.cpp	\
 					simple/isascii.cpp	\
-					simple/isdigit.cpp
+					simple/isdigit.cpp	\
+					simple/isprint.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++
