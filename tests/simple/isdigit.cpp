@@ -3,19 +3,19 @@
 #include <iostream>
 
 extern "C" {
-    int ft_isalpha(int c);
+    int ft_isdigit(int c);
 }
 
 static void    test(int c) {
     int systemCall;
     int betonniereCall;
 
-    systemCall = std::isalpha(c);
-    betonniereCall = ft_isalpha(c);
+    systemCall = std::isdigit(c);
+    betonniereCall = ft_isdigit(c);
     assert(systemCall == betonniereCall);
 }
 
-void test_isalpha() {
-    for (int i = 0; i <= (2 << sizeof(char)); i++)
+void test_isdigit() {
+    for (int i = 48; i <= 57; i++)
         test(i);
 }
