@@ -3,6 +3,8 @@ LIB_NAME		=	fts
 SRC_DIR			=	srcs
 SRC				=	ft_bzero.s		\
 					ft_puts.s		\
+					ft_isalpha.s	\
+					ft_isdigit.s	\
 					ft_strlen.s		\
 					ft_toupper.s 	\
 					ft_tolower.s	\
@@ -15,7 +17,10 @@ TESTS_SRC_DIR	=	tests
 TESTS_SRC		=	main.cpp			\
 					simple/bzero.cpp	\
 					simple/strlen.cpp	\
-					simple/memset.cpp
+					simple/memset.cpp	\
+					simple/puts.cpp		\
+					simple/isalpha.cpp	\
+					simple/isdigit.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++
