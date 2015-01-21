@@ -1,17 +1,21 @@
 NAME			=	libfts.a
 LIB_NAME		=	fts
 SRC_DIR			=	srcs
-SRC				=	ft_bzero.s ft_toupper.s ft_tolower.s
+SRC				=	ft_bzero.s		\
+					ft_puts.s 		\
+					ft_toupper.s 	\
+					ft_tolower.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
 TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
-TESTS_SRC		=	main.c
-TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.c=.o)))
+TESTS_SRC		=	main.cpp \
+					simple/bzero.cpp
+TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
-COMPILER		=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -O3 -c
+COMPILER		=	g++
+CFLAGS			=	-Wall -Wextra -Werror -O3 -std=c++1y -c
 LFLAGS			=	-L. -l$(LIB_NAME)
 
 
@@ -34,7 +38,10 @@ tests: $(NAME) $(TESTS_NAME)
 $(TESTS_NAME): $(TESTS_OBJ)
 	$(COMPILER) $(LFLAGS) $^ -o $@
 
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/%.cpp
+	$(COMPILER) $(CFLAGS) $< -o $@
+
+$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/simple/%.cpp
 	$(COMPILER) $(CFLAGS) $< -o $@
 
 clean:
