@@ -8,8 +8,9 @@ OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
 TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
-TESTS_SRC		=	main.cpp \
-					simple/bzero.cpp
+TESTS_SRC		=	main.cpp			\
+					simple/bzero.cpp	\
+					simple/puts.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++

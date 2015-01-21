@@ -11,7 +11,8 @@ using test_map_t = std::map<std::string, std::function<void ()>>;
 using namespace std::string_literals;
 
 static const test_map_t TEST_MAP = {
-    { "bzero"s, test_bzero }
+    { "bzero"s, test_bzero },
+    { "puts"s, test_puts },
 };
 
 static void show_usage(const std::string & prog_name)
