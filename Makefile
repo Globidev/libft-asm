@@ -8,7 +8,9 @@ SRC				=	ft_bzero.s		\
 					ft_strlen.s		\
 					ft_toupper.s 	\
 					ft_tolower.s	\
-					ft_memset.s
+					ft_memset.s		\
+					ft_memcpy.s		\
+					ft_strdup.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
@@ -18,9 +20,11 @@ TESTS_SRC		=	main.cpp			\
 					simple/bzero.cpp	\
 					simple/strlen.cpp	\
 					simple/memset.cpp	\
+					simple/memcpy.cpp	\
 					simple/puts.cpp		\
 					simple/isalpha.cpp	\
-					simple/isdigit.cpp
+					simple/isdigit.cpp	\
+					simple/strdup.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++

@@ -3,7 +3,7 @@
 #include <iostream>
 
 extern "C" {
-    void    *ft_memset(void *, int c, size_t len);
+    void    *ft_memset(void *, int, size_t);
 }
 
 void test_memset()
