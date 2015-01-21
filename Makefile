@@ -5,7 +5,8 @@ SRC				=	ft_bzero.s		\
 					ft_puts.s		\
 					ft_strlen.s		\
 					ft_toupper.s 	\
-					ft_tolower.s
+					ft_tolower.s	\
+					ft_memset.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
@@ -13,7 +14,8 @@ TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
 TESTS_SRC		=	main.cpp			\
 					simple/bzero.cpp	\
-					simple/strlen.cpp
+					simple/strlen.cpp	\
+					simple/memset.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++

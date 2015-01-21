@@ -12,7 +12,8 @@ using namespace std::string_literals;
 
 static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
-    { "strlen"s, test_strlen }
+    { "strlen"s, test_strlen },
+    { "memset"s, test_memset }
 };
 
 static void show_usage(const std::string & prog_name)
