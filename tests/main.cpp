@@ -12,7 +12,8 @@ using namespace std::string_literals;
 
 static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
-    { "isalpha"s, testis_alpha },
+    { "isalpha"s, test_isalpha },
+    { "isdigit"s, test_isdigit },
     { "strlen"s, test_strlen }
 };
 
