@@ -11,13 +11,13 @@ void test_memcpy()
     char    *systemCall;
     char    *betonicCall;
     size_t  size = 11;
-    char    str_sys[] = "Hello World";
-    char    str_bet[] = "lolilolilol";
-    char    str_sys2[] = "Hello World";
-    char    str_bet2[] = "lolilolilol";
+    char    dst_sys[] = "Hello World";
+    char    src_sys[] = "lolilolilol";
+    char    dst_bet[] = "Hello World";
+    char    src_bet[] = "lolilolilol";
 
-    systemCall = (char*)memcpy(str_sys, str_bet, size);
-    betonicCall = (char*)ft_memcpy(str_sys2, str_bet2, size);
+    systemCall = (char*)memcpy(dst_sys, src_sys, size);
+    betonicCall = (char*)ft_memcpy(dst_bet, src_bet, size);
 
     std::cout << systemCall << std::endl;
     std::cout << betonicCall << std::endl;
