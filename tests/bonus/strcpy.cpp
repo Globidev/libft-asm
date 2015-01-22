@@ -21,5 +21,5 @@ void test_strcpy()
     std::cout << systemCall << std::endl;
     std::cout << betonicCall << std::endl;
 
-    // assert(!strcmp(systemCall, betonicCall));
+    assert(!strcmp(systemCall, betonicCall));
 }
