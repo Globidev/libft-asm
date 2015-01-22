@@ -17,3 +17,4 @@ void test_toupper();
 void test_cat();
 void test_strcpy();
 void test_memccpy();
+void test_memdel();
