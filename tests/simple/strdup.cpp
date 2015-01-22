@@ -3,20 +3,24 @@
 #include <iostream>
 
 extern "C" {
-	char	*ft_strdup(const char *);
+    char    *ft_strdup(const char *);
+}
+
+static void test_one(const char * str)
+{
+    char * dup;
+    char * ft_dup;
+
+    dup = ::strdup(str);
+    ft_dup = ft_strdup(str);
+    assert(strlen(dup) == strlen(ft_dup));
+    assert(!memcmp(str, dup, strlen(dup)));
+    free(dup);
+    free(ft_dup);
 }
 
 void test_strdup()
 {
-	char    *systemCall;
-	char	*betonicCall;
-	char	str[] = "Hello World";
-
-	systemCall = strdup(str);
-	betonicCall = ft_strdup(str);
-
-	std::cout << systemCall << std::endl;
-	std::cout << betonicCall << std::endl;
-
-	// assert(!memcmp(systemCall, betonicCall, size));
+    test_one("Hello");
+    test_one("");
 }
