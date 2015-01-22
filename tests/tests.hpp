@@ -16,3 +16,4 @@ void test_tolower();
 void test_toupper();
 void test_cat();
 void test_strcpy();
+void test_memccpy();

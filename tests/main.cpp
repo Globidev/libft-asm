@@ -29,6 +29,7 @@ static const test_map_t TEST_MAP = {
     { "memcpy"s, test_memcpy },
     { "cat"s, test_cat },
     { "strcpy"s, test_strcpy },
+    { "memccpy"s, test_memccpy},
 };
 
 static void show_usage(const std::string & prog_name)
