@@ -1,92 +1,64 @@
+rwildcard		=	$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)\
+					$(filter $(subst *,%,$2),$d))
+
 NAME			=	libfts.a
+OBJ_DIR			=	objs
+
 LIB_NAME		=	fts
 SRC_DIR			=	srcs
-SRC				=	ft_bzero.s		\
-					ft_puts.s		\
-					ft_isalpha.s	\
-					ft_isdigit.s	\
-					ft_isalnum.s	\
-					ft_strlen.s		\
-					ft_toupper.s 	\
-					ft_tolower.s	\
-					ft_memset.s		\
-					ft_memcpy.s		\
-					ft_strdup.s		\
-					ft_strcat.s		\
-					ft_isascii.s	\
-					ft_memset.s		\
-					ft_isprint.s	\
-					ft_isascii.s	\
-					ft_cat.s		\
-					ft_strcpy.s
-OBJ_DIR			=	objs
-OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
+SRC				=	$(call rwildcard, $(SRC_DIR), *.s)
+OBJ				=	$(addprefix $(OBJ_DIR)/, $(SRC:.s=.o))
 
 TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
-TESTS_SRC		=	main.cpp			\
-					simple/bzero.cpp	\
-					simple/puts.cpp		\
-					simple/isalpha.cpp	\
-					simple/strcat.cpp	\
-					simple/isascii.cpp	\
-					simple/isdigit.cpp	\
-					simple/isalnum.cpp	\
-					simple/isprint.cpp	\
-					simple/tolower.cpp	\
-					simple/toupper.cpp	\
-					medium/strdup.cpp	\
-					medium/memcpy.cpp	\
-					medium/strlen.cpp	\
-					medium/memset.cpp	\
-					hard/cat.cpp		\
-					bonus/strcpy.cpp
-TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
+TESTS_SRC		=	$(call rwildcard, $(TESTS_SRC_DIR), *.cpp)
+TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(TESTS_SRC:.cpp=.o))
 
+ASSEMBLER		=	nasm
 COMPILER		=	g++
+AFLAGS			=	-f macho64
 CFLAGS			=	-Wall -Wextra -Werror -O3 -std=c++1y -c
 LFLAGS			=	-L. -l$(LIB_NAME)
 
+OBJ_SUB_DIRS	=	$(dir $(OBJ))
+OBJ_SUB_DIRS	+=	$(dir $(TESTS_OBJ))
 
-all: $(NAME)
+all:
+	@$(MAKE) $(NAME)
+	@$(MAKE) $(TESTS_NAME)
 
 $(NAME): $(OBJ)
-	ar rc $@ $^
-	ranlib $@
+	@echo "linking archive $@"
+	@ar rc $@ $^
+	@ranlib $@
 
 $(OBJ): | $(OBJ_DIR)
 
 $(OBJ_DIR):
-	mkdir -p $@
+	@$(foreach dir, $(OBJ_SUB_DIRS), mkdir -p $(dir);)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
-	nasm -f macho64 $< -o $@
+$(OBJ_DIR)/%.o: %.s
+	@echo "assembling $(notdir $<)"
+	@$(ASSEMBLER) $(AFLAGS) $< -o $@
 
-tests: $(NAME) $(TESTS_NAME)
+$(TESTS_NAME): $(NAME) $(TESTS_OBJ)
+	@echo "linking $@"
+	@$(COMPILER) $(LFLAGS) $^ -o $@
 
-$(TESTS_NAME): $(TESTS_OBJ)
-	$(COMPILER) $(LFLAGS) $^ -o $@
-
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/%.cpp
-	$(COMPILER) $(CFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/simple/%.cpp
-	$(COMPILER) $(CFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/medium/%.cpp
-	$(COMPILER) $(CFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/hard/%.cpp
-	$(COMPILER) $(CFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/bonus/%.cpp
-	$(COMPILER) $(CFLAGS) $< -o $@
+$(OBJ_DIR)/%.o: %.cpp
+	@echo "compiling $(notdir $<)"
+	@$(COMPILER) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@echo "cleaning objects"
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(TESTS_NAME)
+	@echo "cleaning $(NAME)"
+	@rm -f $(NAME)
+	@echo "cleaning $(TESTS_NAME)"
+	@rm -f $(TESTS_NAME)
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) all
