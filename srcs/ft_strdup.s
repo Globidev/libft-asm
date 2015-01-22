@@ -28,7 +28,7 @@ copy:
     cmp     r15,    0       ; reusing r15 for reverse looping
     jl      return
     mov     r8, [r14 + r15] ; r8 as a temporary for mem to mem copy
-    mov     byte [rax + r15], r8b
+    mov     [rax + r15], r8b
     dec     r15
     jmp     copy
 
