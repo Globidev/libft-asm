@@ -7,9 +7,12 @@ _ft_strlen:
 get_len:
     cmp     byte [rdi],     0
     je      ret
-    inc     rdi
-    inc     rax
-    jmp     get_len
+    mov     al, 0           ;Byte to search in rdi
+    mov     rcx, -1         ;Start count at -1
+    cld                     ;Increment rdi at each turn of repne
+    repne   scasb           ;Scan string for al (NULL), decrementing rcx at each turn
+    mov     rax, -2         ;rcx will be -2 for length 0, -3 for length 1, ...
+    sub     rax, rcx        ;Length in rax
 
 ret:
     ret
