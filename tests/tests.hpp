@@ -14,3 +14,4 @@ void test_memcpy();
 void test_strdup();
 void test_tolower();
 void test_toupper();
+void test_cat();
