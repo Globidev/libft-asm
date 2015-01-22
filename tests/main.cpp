@@ -40,7 +40,7 @@ static void show_usage(const std::string & prog_name)
 
 static void run_all_tests()
 {
-    for (auto test_it: TEST_MAP)
+    for (const auto & test_it: TEST_MAP)
     {
         test_it.second();
         std::cout << test_it.first << ": OK" << std::endl;
