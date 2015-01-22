@@ -12,3 +12,5 @@ void test_memset();
 void test_isprint();
 void test_memcpy();
 void test_strdup();
+void test_tolower();
+void test_toupper();

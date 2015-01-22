@@ -1,6 +1,5 @@
 #include <cassert>
 #include <cctype>
-#include <iostream>
 
 extern "C" {
     int ft_isdigit(int c);

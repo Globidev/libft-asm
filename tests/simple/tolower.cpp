@@ -2,10 +2,10 @@
 #include <cctype>
 
 extern "C" {
-    int ft_isalnum(int c);
+    int ft_tolower(int c);
 }
 
-void test_isalnum() {
+void test_tolower() {
     for (int i = 0; i <= (1 << sizeof(char) * 8); i++)
-        assert(std::isalnum(i) == ft_isalnum(i));
+        assert(std::tolower(i) == ft_tolower(i));
 }
