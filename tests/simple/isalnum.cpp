@@ -2,10 +2,10 @@
 #include <cctype>
 
 extern "C" {
-    int ft_isdigit(int c);
+    int ft_isalnum(int c);
 }
 
-void test_isdigit() {
+void test_isalnum() {
     for (int i = 0; i <= (1 << sizeof(char) * 8); i++)
-        assert(std::isdigit(i) == ft_isdigit(i));
+        assert(std::isalnum(i) == ft_isalnum(i));
 }

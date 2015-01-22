@@ -1,4 +1,3 @@
-#include <iostream>
 #include <ctype.h>
 #include <assert.h>
 

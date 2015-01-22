@@ -5,6 +5,7 @@ SRC				=	ft_bzero.s		\
 					ft_puts.s		\
 					ft_isalpha.s	\
 					ft_isdigit.s	\
+					ft_isalnum.s	\
 					ft_strlen.s		\
 					ft_toupper.s 	\
 					ft_tolower.s	\
@@ -23,16 +24,19 @@ TESTS_NAME		=	libfts_tests
 TESTS_SRC_DIR	=	tests
 TESTS_SRC		=	main.cpp			\
 					simple/bzero.cpp	\
-					simple/strlen.cpp	\
-					simple/memset.cpp	\
-					simple/memcpy.cpp	\
 					simple/puts.cpp		\
 					simple/isalpha.cpp	\
-					simple/strdup.cpp	\
 					simple/strcat.cpp	\
 					simple/isascii.cpp	\
 					simple/isdigit.cpp	\
-					simple/isprint.cpp
+					simple/isalnum.cpp	\
+					simple/isprint.cpp	\
+					simple/tolower.cpp	\
+					simple/toupper.cpp	\
+					medium/strdup.cpp	\
+					medium/memcpy.cpp	\
+					medium/strlen.cpp	\
+					medium/memset.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++
@@ -63,6 +67,9 @@ $(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/%.cpp
 	$(COMPILER) $(CFLAGS) $< -o $@
 
 $(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/simple/%.cpp
+	$(COMPILER) $(CFLAGS) $< -o $@
+
+$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/medium/%.cpp
 	$(COMPILER) $(CFLAGS) $< -o $@
 
 clean:

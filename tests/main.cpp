@@ -14,16 +14,19 @@ static const auto ALL_STRING = "all"s;
 
 static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
+    { "puts"s, test_puts },
+    { "strcat"s, test_strcat },
+    { "isalpha"s, test_isalpha },
+    { "isdigit"s, test_isdigit },
+    { "isalnum"s, test_isalnum },
+    { "isascii"s, test_isascii },
+    { "isprint"s, test_isprint },
+    { "tolower"s, test_tolower },
+    { "toupper"s, test_toupper },
+    { "strdup"s, test_strdup },
     { "strlen"s, test_strlen },
     { "memset"s, test_memset },
     { "memcpy"s, test_memcpy },
-    { "puts"s, test_puts },
-    { "isalpha"s, test_isalpha },
-    { "isdigit"s, test_isdigit },
-    { "strdup"s, test_strdup },
-    { "strcat"s, test_strcat },
-    { "isascii"s, test_isascii },
-    { "isprint"s, test_isprint }
 };
 
 static void show_usage(const std::string & prog_name)
