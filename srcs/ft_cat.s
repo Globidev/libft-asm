@@ -1,15 +1,9 @@
 section .data
 
-buff_size   equ 10
-
-section .bss
-
-buffer: resb    buff_size
+buff_size   equ     1024
 
 section .text
 global _ft_cat
-
-extern  _malloc
 
 _ft_cat:
     sub     rsp,    buff_size       ; add buffer size to stack top

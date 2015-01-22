@@ -17,7 +17,8 @@ SRC				=	ft_bzero.s		\
 					ft_memset.s		\
 					ft_isprint.s	\
 					ft_isascii.s	\
-					ft_cat.s
+					ft_cat.s		\
+					ft_strcpy.s
 OBJ_DIR			=	objs
 OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.s=.o)))
 
@@ -38,7 +39,8 @@ TESTS_SRC		=	main.cpp			\
 					medium/memcpy.cpp	\
 					medium/strlen.cpp	\
 					medium/memset.cpp	\
-					hard/cat.cpp
+					hard/cat.cpp		\
+					bonus/strcpy.cpp
 TESTS_OBJ		=	$(addprefix $(OBJ_DIR)/, $(notdir $(TESTS_SRC:.cpp=.o)))
 
 COMPILER		=	g++
@@ -75,6 +77,9 @@ $(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/medium/%.cpp
 	$(COMPILER) $(CFLAGS) $< -o $@
 
 $(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/hard/%.cpp
+	$(COMPILER) $(CFLAGS) $< -o $@
+
+$(OBJ_DIR)/%.o: $(TESTS_SRC_DIR)/bonus/%.cpp
 	$(COMPILER) $(CFLAGS) $< -o $@
 
 clean:
