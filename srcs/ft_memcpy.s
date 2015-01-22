@@ -1,7 +1,7 @@
 section .text
 global _ft_memcpy
 
-; rcx -> nbr de rep
+; rcx -> number of rep
 ; rsi -> src
 ; rdi -> dest
 ; rep movsb
@@ -9,13 +9,13 @@ global _ft_memcpy
 
 _ft_memcpy:
     mov     rax,    rdi ;set return value
-    cmp     rdx,    0	;check nbr of rep 
-    je     ret1
+    cmp     rdx,    0   ;check nbr of rep 
+    je      ret1
     mov     rcx,    rdx ;set rcx
 
 copy:
     cld
-    rep     movsb		;betonic memcpy
+    rep     movsb       ;betonic memcpy
 
 ret1:
     ret
