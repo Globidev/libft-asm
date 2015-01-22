@@ -37,7 +37,7 @@ static puts_ret_t puts_call(const F & f, const char * str)
 static void test_one(const char * str)
 {
     auto puts_ret = puts_call(std::puts, str);
-    auto ft_puts_ret = puts_call(std::puts, str);
+    auto ft_puts_ret = puts_call(::ft_puts, str);
     assert(puts_ret == ft_puts_ret);
 }
 
