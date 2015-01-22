@@ -14,8 +14,9 @@ static const test_map_t TEST_MAP = {
     { "bzero"s, test_bzero },
     { "puts"s, test_puts },
     { "isalpha"s, test_isalpha },
-    { "strlen"s, test_strlen },
     { "isdigit"s, test_isdigit },
+    { "isalnum"s, test_isalnum },
+    { "strlen"s, test_strlen },
 };
 
 static void show_usage(const std::string & prog_name)
