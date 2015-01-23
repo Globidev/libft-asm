@@ -19,7 +19,7 @@ static bool test_one(const char (&dst)[n], const char * src, size_t i)
     auto ret = std::strncpy(buff1, src, i);
     auto ft_ret = ::ft_strncpy(buff2, src, i);
 
-    debug(ret, ft_ret);
+    // debug(ret, ft_ret);
 
     return !strcmp(ret, ft_ret);
 }
@@ -36,7 +36,7 @@ static bool test_two(const char (&dst)[n], const char * src, size_t i)
     auto ret = std::strncpy(buff1, src, i);
     auto ft_ret = ::ft_strncpy(buff2, src, i);
 
-    debug(ret, ft_ret);
+    // debug(ret, ft_ret);
 
     return !strcmp(ret, ft_ret);
 }
