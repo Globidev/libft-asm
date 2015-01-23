@@ -46,7 +46,7 @@ struct test_map_t: public base_map_t
 
     void show_usage(const std::string & prog_name) const
     {
-        std::cerr << "Usage: " << prog_name << " [--verbose] [all] [";
+        std::cerr << "Usage: " << prog_name << " [" << VERBOSE_FLAG << "] [all] [";
         if (!empty())
         {
             std::cerr << "\033[38;5;3m" << begin()->first << "\033[0m";
