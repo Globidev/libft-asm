@@ -18,3 +18,4 @@ void test_cat();
 void test_strcpy();
 void test_memccpy();
 void test_memdel();
+void test_memchr();

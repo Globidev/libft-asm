@@ -12,9 +12,9 @@ _ft_memccpy:
 	je 		ret_fail
 
 copy:
-    mov     r8, 		[rsi]			
+    mov     r8, 		[rsi]
     mov     byte [rdi], r8b				; Copy rsi -> rdi
-    inc     rdi							
+    inc     rdi
 	cmp     [rsi], dl					; Search c
     je      ret_sucess
     dec		rcx
