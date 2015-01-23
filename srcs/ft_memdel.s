@@ -12,8 +12,10 @@ _ft_memdel:
 dealloc:
     call    _free
     pop     rdi
-    xor     r8,       r8
-    mov     [rdi],    r8
+    push    r12
+    xor     r12,      r12
+    mov     [rdi],    r12
+    pop     r12
 
 
 ret_null:

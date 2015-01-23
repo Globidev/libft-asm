@@ -2,6 +2,7 @@ section .text
 global _ft_isalpha
 
 _ft_isalpha:
+    push    rdi
     cmp     rdi, 'a'
     jge     check_last_min
     cmp     rdi, 'A'
@@ -26,4 +27,5 @@ set_false:
     mov     rax, 0
 
 return:
+    pop     rdi
     ret

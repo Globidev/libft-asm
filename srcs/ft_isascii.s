@@ -1,7 +1,8 @@
 section .text
 global _ft_isascii
 
-_ft_isascii: 
+_ft_isascii:
+    push    rdi
     cmp     rdi, 0
     jge     check_last
     jmp     set_false
@@ -19,4 +20,5 @@ set_false:
     mov     rax, 0
 
 return:
+    pop     rdi
     ret

@@ -2,15 +2,18 @@ section .text
 global _ft_memset
 
 _ft_memset:
-    mov     rax,            rdi
-    test    rdx,            rdx
-    je      ret1
-    mov     rcx,            rdx
+    test    rdx,    rdx
+    je      return
+    mov     rax,    rsi
+    mov     rcx,    rdx
+    push    rdi
+    cld
+    rep     stosb
+    pop     rdi
 
-l1:
-    mov     byte [rdi],     sil
-    inc     rdi
-    loop    l1
-
-ret1:
+return:
+    mov     rax,    rdi
     ret
+
+
+; stosb ==> put al in rdi, cld to inc rdi, then rep

@@ -6,6 +6,9 @@ section .text
 global _ft_cat
 
 _ft_cat:
+    push    rdi
+    push    rsi
+    push    r15
     sub     rsp,    buff_size       ; add buffer size to stack top
     mov     rsi,    rsp             ; buffer zone in rsi
     add     rsp,    buff_size       ; restore stack pointer
@@ -24,9 +27,12 @@ write:
     mov     rdx,    rax             ; size to write in rdx
     mov     rax,    0x2000004       ; write in rax
     syscall                         ; rsi is fine, call write
-    cmp     rax,    -1              ; if write failed
-    je      return                  ; abort
+    cmp     rax,    0               ; if write failed
+    jle     return                  ; abort
     jmp     read                    ; read again
 
 return:
+    pop     r15
+    pop     rsi
+    pop     rdi
     ret
