@@ -1,24 +1,25 @@
 section .text
 global _ft_isascii
 
+; int (int c)
+;         |
+;         v
+;        rdi
+
 _ft_isascii:
-    push    rdi
-    cmp     rdi, 0
+    cmp     rdi,    0
     jge     check_last
-    jmp     set_false
+    jmp     ret_false
 
 check_last:
-    cmp     rdi, 127
-    jle     set_true
-    jmp     set_false
+    cmp     rdi,    127
+    jle     ret_true
+    jmp     ret_false
 
-set_true:
-    mov     rax, 1
-    jmp     return
+ret_true:
+    mov     rax,    1
+    ret
 
-set_false:
-    mov     rax, 0
-
-return:
-    pop     rdi
+ret_false:
+    mov     rax,    0
     ret
