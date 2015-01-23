@@ -42,5 +42,5 @@ void test_puts_t::run()
     std::string wtf;
     wtf.resize(BUFF_MAX_SIZE);
     std::generate(wtf.begin(), wtf.end(), std::rand);
-    assert(wtf.c_str(), "random string of " + std::to_string(BUFF_MAX_SIZE) + " numbers");
+    assert(test_one(wtf.c_str()), "random string of " + std::to_string(BUFF_MAX_SIZE) + " numbers");
 }
