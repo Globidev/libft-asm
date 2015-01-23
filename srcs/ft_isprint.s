@@ -1,24 +1,25 @@
 section .text
 global _ft_isprint
 
+; int (int c)
+;         |
+;         v
+;        rdi
+
 _ft_isprint:
-    push    rdi
     cmp     rdi, 32
     jge     check_last
-    jmp     set_false
+    jmp     ret_false
 
 check_last:
     cmp     rdi, 126
-    jle     set_true
-    jmp     set_false
+    jle     ret_true
+    jmp     ret_false
 
-set_true:
+ret_true:
     mov     rax, 1
-    jmp     return
+    ret
 
-set_false:
+ret_false:
     mov     rax, 0
-
-return:
-    pop     rdi
     ret
