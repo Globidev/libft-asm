@@ -7,7 +7,7 @@
 
 using namespace std::string_literals;
 static const auto ALL_STRING = "all"s;
-static const auto VERBOSE_FLAG = "--verbose"s;
+static const auto VERBOSE_FLAG = "-v"s;
 
 bool test_base_t::verbose = false;
 
@@ -46,7 +46,7 @@ struct test_map_t: public base_map_t
 
     void show_usage(const std::string & prog_name) const
     {
-        std::cerr << "Usage: " << prog_name << " [--verbose] [all] [";
+        std::cerr << "Usage: " << prog_name << " [" << VERBOSE_FLAG << "] [all] [";
         if (!empty())
         {
             std::cerr << "\033[38;5;3m" << begin()->first << "\033[0m";
@@ -66,7 +66,7 @@ struct test_map_t: public base_map_t
             auto it = find(test_name);
             if (it != end())
                 return run_one(it);
-            std::cerr << "Unknown test: " << test_name;
+            std::cerr << "Unknown test: " << test_name << std::endl;
         }
     }
 
