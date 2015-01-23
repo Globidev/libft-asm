@@ -6,6 +6,8 @@ extern "C" {
 
 void test_isascii_t::run()
 {
+    bool all_chars = true;
     for (int i = 0; i <= (1 << sizeof(char) * 8); i++)
-        assert(isascii(i) == ft_isascii(i), std::to_string(i));
+        all_chars &= (::isascii(i) == ::ft_isascii(i));
+    assert(all_chars, "int from 0 to " + std::to_string(1 << sizeof(char) * 8));
 }
