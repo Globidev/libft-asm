@@ -17,27 +17,36 @@ template <class T, size_t src_n>
 static bool test_one(const T (&src)[src_n])
 {
     t_list  *betonic_lst;
+    bool    result;
 
     betonic_lst = ft_lstnew(src, src_n);
-    return (!strcmp((char*)betonic_lst->content, src));
+    result = !strcmp((char*)betonic_lst->content, src);
+    free(betonic_lst);
+    return result;
 }
 
 template <class T, size_t src_n>
 static bool test_two(const T (&src)[src_n])
 {
     t_list  *betonic_lst;
+    bool    result;
 
     betonic_lst = ft_lstnew(src, src_n);
-    return (betonic_lst->content_size == src_n);
+    result = (betonic_lst->content_size == src_n);
+    free(betonic_lst);
+    return result;
 }
 
 template <class T, size_t src_n>
 static bool test_three(const T (&src)[src_n])
 {
     t_list  *betonic_lst;
+    bool    result;
 
     betonic_lst = ft_lstnew(src, src_n);
-    return (betonic_lst->next == 0);
+    result = (betonic_lst->next == 0);
+    free(betonic_lst);
+    return result;
 }
 
 void test_lstnew_t::run()

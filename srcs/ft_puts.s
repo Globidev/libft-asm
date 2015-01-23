@@ -22,10 +22,12 @@ display:
     cmp     rax,    -1
     je      return
     push    10
-    pop     rsi
+    mov     rsi,    rsp
+    mov     rdi,    1
     mov     rdx,    1
     mov     rax,    0x2000004
     syscall
+    pop     r8
     cmp     rax,    -1
     je      return
     mov     rax,    10

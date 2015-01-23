@@ -16,6 +16,7 @@ static auto puts_call(const F & f, const char * str)
     int fds[2];
     int saved_stdout;
 
+    fflush(stdout);
     pipe(fds);
     saved_stdout = dup(STDOUT_FILENO);
     dup2(fds[1], STDOUT_FILENO);
@@ -42,5 +43,7 @@ void test_puts_t::run()
     std::string wtf;
     wtf.resize(BUFF_MAX_SIZE);
     std::generate(wtf.begin(), wtf.end(), std::rand);
-    assert(wtf.c_str(), "random string of " + std::to_string(BUFF_MAX_SIZE) + " numbers");
+    assert(test_one(wtf.c_str()), "random string of " + std::to_string(BUFF_MAX_SIZE) + " numbers");
+
+    assert(test_one("Hello\0World!"), "\"Hello\\0World!\"");
 }
