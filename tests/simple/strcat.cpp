@@ -7,7 +7,7 @@ extern "C" {
 }
 
 template <size_t n1, size_t n2>
-static bool test_one(const char (&s1)[n1], const char (&s2)[n2])
+static bool test_full(const char (&s1)[n1], const char (&s2)[n2])
 {
     char dest[n1 + n2 - 1];
     char ft_dest[n1 + n2 - 1];
@@ -21,7 +21,7 @@ static bool test_one(const char (&s1)[n1], const char (&s2)[n2])
 
 void test_strcat_t::run()
 {
-    assert(test_one("a", "b"), "\"a\" + \"b\"");
-    assert(test_one("Hello", " World!"), "\"Hello\" + \"World!\"");
-    assert(test_one("", ""), "empty");
+    assert(test_full("a", "b"), "\"a\" + \"b\"");
+    assert(test_full("Hello", " World!"), "\"Hello\" + \"World!\"");
+    assert(test_full("", ""), "empty");
 }
