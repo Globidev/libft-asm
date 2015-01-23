@@ -35,3 +35,4 @@ ADD_TEST(test_memccpy_t);
 ADD_TEST(test_memdel_t);
 ADD_TEST(test_memchr_t);
 ADD_TEST(test_strncpy_t);
+ADD_TEST(test_lstnew_t);
