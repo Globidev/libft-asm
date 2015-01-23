@@ -42,6 +42,7 @@ struct test_map_t: public base_map_t
         (*this)["memccpy"].reset(new test_memccpy_t);
         (*this)["memdel"].reset(new test_memdel_t);
         (*this)["memchr"].reset(new test_memchr_t);
+        (*this)["strncpy"].reset(new test_strncpy_t);
     }
 
     void show_usage(const std::string & prog_name) const
