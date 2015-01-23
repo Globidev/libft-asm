@@ -66,7 +66,7 @@ struct test_map_t: public base_map_t
             auto it = find(test_name);
             if (it != end())
                 return run_one(it);
-            std::cerr << "Unknown test: " << test_name;
+            std::cerr << "Unknown test: " << test_name << std::endl;
         }
     }
 
