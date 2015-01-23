@@ -20,6 +20,7 @@ _ft_strncpy:
     mov     rdi,    r12             ;move r12 (first arg) in rdi
     mov     rax,    rdi             ;move rdi (first arg) in rax
     mov     rcx,    rdx             ;move rdx in rcx for count
+    cld
     rep     movsb                   ;copy rcx char
     pop     r12                     ;restore r12
     pop     rsi                     ;restore rsi
