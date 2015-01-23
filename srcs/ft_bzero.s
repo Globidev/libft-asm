@@ -2,8 +2,9 @@ section .text
 global _ft_bzero
 
 _ft_bzero:
+    push    rdi
     test    rsi, rsi
-    je      ret1
+    je      return
     mov     rcx, rsi
 
 l1:
@@ -11,5 +12,6 @@ l1:
     inc     rdi
     loop    l1
 
-ret1:
+return:
+    pop     rdi
     ret

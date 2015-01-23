@@ -3,7 +3,9 @@ global _ft_puts
 
 _ft_puts:
     cmp     rdi,    0
-    je      ret_fail
+    je      return
+    push    rdi
+    push    rsi
     mov     rsi,    rdi
     mov     rdi,    1
     mov     rdx,    0
@@ -18,20 +20,18 @@ get_len:
 display:
     syscall
     cmp     rax,    -1
-    je      ret_fail
+    je      return
     push    10
-    mov     rsi,    rsp
+    pop     rsi
     mov     rdx,    1
     mov     rax,    0x2000004
     syscall
-    pop     rsi
     cmp     rax,    -1
-    je      ret_fail
-
-ret_success:
+    je      return
     mov     rax,    10
-    ret
 
-ret_fail:
+return:
+    pop     rsi
+    pop     rdi
     ret
 

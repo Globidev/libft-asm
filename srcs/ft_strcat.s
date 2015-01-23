@@ -5,14 +5,16 @@ global _ft_strcat
 ; rsi -> char * src
 
 _ft_strcat:
-    mov     rax, rdi
-    cmp     rdi, 0
-    je      ret1
-    cmp     rsi, 0
-    je      ret1
+    mov     rax,    rdi
+    cmp     rdi,    0
+    je      return
+    cmp     rsi,    0
+    je      return
+    push    rdi
+    push    rsi
 
 l1:
-    cmp     byte [rdi],  0
+    cmp     byte [rdi], 0
     je      cat
     inc     rdi
     jmp     l1
@@ -28,5 +30,7 @@ cat:
 
 end:
     mov     byte [rdi], 0
-ret1:
+return:
+    pop     rsi
+    pop     rdi
     ret

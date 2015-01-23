@@ -7,26 +7,32 @@ global _ft_memccpy
 ; rcx -> size_t n
 
 _ft_memccpy:
-	mov 	rax,	rdi					; Set return Value
-	cmp		rcx, 	0					; Check rcx
-	je 		ret_fail
+    push    rdi
+    push    rsi
+    mov     rax,    rdi                 ; Set return Value
+    cmp     rcx,    0                   ; Check rcx
+    je      ret_fail
 
 copy:
-    mov     r8, 		[rsi]
-    mov     byte [rdi], r8b				; Copy rsi -> rdi
+    mov     r8,     [rsi]
+    mov     byte [rdi], r8b             ; Copy rsi -> rdi
     inc     rdi
-	cmp     [rsi], dl					; Search c
+    cmp     [rsi],  dl                  ; Search c
     je      ret_sucess
-    dec		rcx
-    cmp		rcx, 	0					; Check rcx
-    je		ret_fail
+    dec     rcx
+    cmp     rcx,    0                   ; Check rcx
+    je      ret_fail
     inc     rsi
     jmp     copy
 
 ret_fail:
-	mov 	rax, 	0
-	ret
+    mov     rax,    0
+    pop     rsi
+    pop     rdi
+    ret
 
 ret_sucess:
-	mov 	rax, rdi
+    mov     rax,    rdi
+    pop     rsi
+    pop     rdi
     ret

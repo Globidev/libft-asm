@@ -2,6 +2,7 @@ section .text
 global _ft_memchr
 
 _ft_memchr:
+    push    rdi
     cmp     rdi,    0
     je      ret_null
     cmp     rdx,    0
@@ -24,4 +25,5 @@ ret_null:
     mov     rax,    0
 
 return:
+    pop     rdi
     ret

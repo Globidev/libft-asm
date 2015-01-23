@@ -2,16 +2,17 @@ section .text
 global _ft_tolower
 
 _ft_tolower:
-    cmp     rdi, 65
+    mov     r8,     rdi
+    cmp     r8,     65
     jge     step1
-    jmp     ret1
+    jmp     return
 
 step1:
-    cmp     rdi, 90
-    ja      ret1
-    add     rdi, 32
-    jmp     ret1
+    cmp     r8,     90
+    ja      return
+    add     r8,     32
+    jmp     return
 
-ret1:
-    mov     rax, rdi
+return:
+    mov     rax,    r8
     ret
