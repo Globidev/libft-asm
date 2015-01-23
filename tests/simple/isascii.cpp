@@ -1,11 +1,11 @@
-#include <ctype.h>
-#include <assert.h>
+#include "../tests.hpp"
 
 extern "C" {
     int ft_isascii(int c);
 }
 
-void test_isascii() {
-    for (int i = 0; i <= 127; i++)
-        assert(isascii(i) == ft_isascii(i));
+void test_isascii_t::run()
+{
+    for (int i = 0; i <= (1 << sizeof(char) * 8); i++)
+        assert(isascii(i) == ft_isascii(i), std::to_string(i));
 }

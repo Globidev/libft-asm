@@ -1,13 +1,11 @@
-#include <cassert>
-#include <cctype>
+#include "../tests.hpp"
 
 extern "C" {
     int ft_tolower(int c);
 }
 
-// Thanks bchevali for your test
-
-void test_tolower() {
+void test_tolower_t::run()
+{
     for (int i = 0; i <= (1 << sizeof(char) * 8); i++)
-        assert(std::tolower(i) == ft_tolower(i));
+        assert(tolower(i) == ft_tolower(i), std::to_string(i));
 }

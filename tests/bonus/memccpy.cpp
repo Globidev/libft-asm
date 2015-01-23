@@ -1,26 +1,28 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+
+#include "../tests.hpp"
 
 extern "C" {
     void    *ft_memccpy(void *, const void *, int, size_t);
 }
 
-void test_memccpy()
+template <size_t n, class T, size_t src_n>
+static bool test_one(const T (&src)[src_n], const T * to_cpy, int c)
 {
-    char    *systemCall;
-    char    *betonicCall;
-    size_t  size = 6;
-    char    str_sys[] = "Hello World";
-    char    str_bet[] = "lolilolilol";
-    char    str_sys2[] = "Hello World";
-    char    str_bet2[] = "lolilolilol";
+    T buff1[n];
+    T buff2[n];
 
-    systemCall = (char*)memccpy(str_sys, str_bet, 'a', size);
-    betonicCall = (char*)ft_memccpy(str_sys2, str_bet2, 'a', size);
+    std::memcpy(buff1, src, src_n * sizeof(T));
+    std::memcpy(buff2, src, src_n * sizeof(T));
 
-    std::cout << systemCall << std::endl;
-    std::cout << betonicCall << std::endl;
+    auto ret = ::memccpy(buff1, to_cpy, c, n * sizeof(T));
+    auto ft_ret = ::ft_memccpy(buff2, to_cpy, c, n * sizeof(T));
 
-    assert(!memcmp(systemCall, betonicCall, size));
+    return !memcmp(buff1, buff2, n * sizeof(T)) &&
+            ((char *)ret - buff1) == ((char *)ft_ret - buff2);
+}
+
+void test_memccpy_t::run()
+{
+    assert(test_one<11>("Hello World", "lolilolilol", 'o'), "\"Hello World\" \"lolilolilol\" 'o' 11");
 }

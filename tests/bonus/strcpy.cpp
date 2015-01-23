@@ -1,25 +1,28 @@
 #include <cstring>
-#include <cassert>
 #include <iostream>
+
+#include "../tests.hpp"
 
 extern "C" {
     char    *ft_strcpy(char *, const char *);
 }
 
-void test_strcpy()
+template <size_t n>
+static bool test_one(const char (&dst)[n], const char * src)
 {
-    char    *systemCall;
-    char    *betonicCall;
-    char    dst_sys[] = "Hello World";
-    char    src_sys[] = "lolilolilol";
-    char    dst_bet[] = "Hello World";
-    char    src_bet[] = "lolilolilol";
+    char    buff1[n];
+    char    buff2[n];
 
-    systemCall = strcpy(dst_sys, src_sys);
-    betonicCall = ft_strcpy(dst_bet, src_bet);
+    std::memcpy(buff1, dst, n);
+    std::memcpy(buff2, dst, n);
 
-    std::cout << systemCall << std::endl;
-    std::cout << betonicCall << std::endl;
+    auto ret = std::strcpy(buff1, src);
+    auto ft_ret = ::ft_strcpy(buff2, src);
 
-    assert(!strcmp(systemCall, betonicCall));
+    return !strcmp(ret, ft_ret);
+}
+
+void test_strcpy_t::run()
+{
+    assert(test_one("Hello World!", "lol"), "\"Hello World!\" \"lol\"");
 }

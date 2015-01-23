@@ -1,86 +1,105 @@
-#include <functional>
-#include <map>
+#include <unordered_map>
 #include <vector>
-#include <iostream>
 #include <ctime>
-#include <cstdlib>
+#include <memory>
 
 #include "tests.hpp"
 
-using test_map_t = std::map<std::string, std::function<void ()>>;
 using namespace std::string_literals;
-
 static const auto ALL_STRING = "all"s;
+static const auto VERBOSE_FLAG = "--verbose"s;
 
-static const test_map_t TEST_MAP = {
-    { "bzero"s, test_bzero },
-    { "puts"s, test_puts },
-    { "strcat"s, test_strcat },
-    { "isalpha"s, test_isalpha },
-    { "isdigit"s, test_isdigit },
-    { "isalnum"s, test_isalnum },
-    { "isascii"s, test_isascii },
-    { "isprint"s, test_isprint },
-    { "tolower"s, test_tolower },
-    { "toupper"s, test_toupper },
-    { "strdup"s, test_strdup },
-    { "strlen"s, test_strlen },
-    { "memset"s, test_memset },
-    { "memcpy"s, test_memcpy },
-    { "cat"s, test_cat },
-    { "strcpy"s, test_strcpy },
-    { "memccpy"s, test_memccpy},
-    { "memdel"s, test_memdel},
-    { "memchr"s, test_memchr},
+bool test_base_t::verbose = false;
+
+using base_map_t = std::unordered_map<std::string, std::unique_ptr<test_base_t>>;
+struct test_map_t: public base_map_t
+{
+    test_map_t(): base_map_t()
+    {
+        // Simple
+        (*this)["bzero"].reset(new test_bzero_t);
+        (*this)["strcat"].reset(new test_strcat_t);
+        (*this)["isalpha"].reset(new test_isalpha_t);
+        (*this)["isdigit"].reset(new test_isdigit_t);
+        (*this)["isalnum"].reset(new test_isalnum_t);
+        (*this)["isascii"].reset(new test_isascii_t);
+        (*this)["isprint"].reset(new test_isprint_t);
+        (*this)["toupper"].reset(new test_toupper_t);
+        (*this)["tolower"].reset(new test_tolower_t);
+        (*this)["puts"].reset(new test_puts_t);
+
+        // Less simple
+        (*this)["strlen"].reset(new test_strlen_t);
+        (*this)["memset"].reset(new test_memset_t);
+        (*this)["memcpy"].reset(new test_memcpy_t);
+        (*this)["strdup"].reset(new test_strdup_t);
+
+        // Cat
+        (*this)["cat"].reset(new test_cat_t);
+
+        // Bonus
+        (*this)["strcpy"].reset(new test_strcpy_t);
+        (*this)["memccpy"].reset(new test_memccpy_t);
+        (*this)["memdel"].reset(new test_memdel_t);
+        (*this)["memchr"].reset(new test_memchr_t);
+    }
+
+    void show_usage(const std::string & prog_name) const
+    {
+        std::cerr << "Usage: " << prog_name << " [--verbose] [all] [";
+        if (!empty())
+        {
+            std::cerr << "\033[38;5;3m" << begin()->first << "\033[0m";
+            for (auto it = next(begin()); it != end(); ++it)
+                std::cerr << ", \033[38;5;3m" << it->first << "\033[0m";
+        }
+        std::cerr << "]" << std::endl;
+    }
+
+    void run(const std::string & test_name) const
+    {
+        if (test_name == ALL_STRING)
+            for (auto it = begin(); it != end(); ++it)
+                run_one(it);
+        else
+        {
+            auto it = find(test_name);
+            if (it != end())
+                return run_one(it);
+            std::cerr << "Unknown test: " << test_name;
+        }
+    }
+
+private:
+
+    void run_one(const base_map_t::const_iterator it) const
+    {
+        std::cout << "\033[38;5;3m" << it->first << ": \033[0m";
+        std::cout.flush();
+        it->second->run();
+        std::cout << std::endl;
+    }
+
 };
-
-static void show_usage(const std::string & prog_name)
-{
-    std::cerr << "Usage: " << prog_name << " [";
-    if (!TEST_MAP.empty())
-    {
-        std::cerr << TEST_MAP.begin()->first;
-        for (auto it = next(TEST_MAP.begin()); it != TEST_MAP.end(); ++it)
-            std::cerr << " " << it->first;
-    }
-    std::cerr << "]" << std::endl;
-}
-
-static void run_all_tests()
-{
-    for (const auto & test_it: TEST_MAP)
-    {
-        test_it.second();
-        std::cout << test_it.first << ": OK" << std::endl;
-    }
-}
 
 int main(int ac, char **av)
 {
     std::srand(std::time(nullptr));
     std::vector<std::string> args { av + 1, av + ac };
+    test_map_t tests;
 
     if (args.empty())
     {
-        show_usage(av[0]);
+        tests.show_usage(av[0]);
         return -1;
     }
 
-    for (auto arg: args)
+    for (const std::string & arg: args)
     {
-        if (arg == ALL_STRING)
-            run_all_tests();
+        if (arg == VERBOSE_FLAG)
+            test_base_t::verbose = true;
         else
-        {
-            auto test_it = TEST_MAP.find(arg);
-            if (test_it != TEST_MAP.end())
-            {
-                test_it->second();
-                std::cout << arg << ": OK" << std::endl;
-            }
-            else
-                std::cerr << "Unknown test: " << arg << std::endl;
-        }
+            tests.run(arg);
     }
 
     return 0;

@@ -1,12 +1,10 @@
-#include <cstring>
-#include <cassert>
-#include <iostream>
+#include "../tests.hpp"
 
 extern "C" {
     void    ft_cat(int);
 }
 
-void test_cat()
+void test_cat_t::run()
 {
-    ft_cat(0);
+    // TODO: open files with known contents and cat them
 }

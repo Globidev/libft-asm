@@ -1,20 +1,20 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+
+#include "../tests.hpp"
 
 extern "C" {
     size_t ft_strlen(const char *);
 }
 
-static void test_one(const char * str)
+static bool test_one(const char * str)
 {
     auto strlen_ret = ::strlen(str); // System call
     auto ft_strlen_ret = ::ft_strlen(str); // Betonic call
-    assert(strlen_ret == ft_strlen_ret);
+    return strlen_ret == ft_strlen_ret;
 }
 
-void test_strlen()
+void test_strlen_t::run()
 {
-    test_one("Hello World");
-    test_one("");
+    assert(test_one("Hello World"), "\"Hello World\"");
+    assert(test_one(""), "empty string");
 }

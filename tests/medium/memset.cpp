@@ -1,24 +1,28 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+
+#include "../tests.hpp"
 
 extern "C" {
     void    *ft_memset(void *, int, size_t);
 }
 
-void test_memset()
+template <size_t n, class T, size_t n_src>
+static bool test_one(const T (&src)[n_src], int c)
 {
-    char    *systemCall;
-    char    *betonicCall;
-    size_t  size = 11;
-    char    str_sys[] = "Hello World";
-    char    str_bet[] = "Hello World";
+    T buff1[n];
+    T buff2[n];
 
-    systemCall = (char*)memset(str_sys, 97, size);
-    betonicCall = (char*)ft_memset(str_bet, 97, size);
+    std::memcpy(buff1, src, n_src * sizeof(T));
+    std::memcpy(buff1, src, n_src * sizeof(T));
 
-    std::cout << systemCall << std::endl;
-    std::cout << betonicCall << std::endl;
+    auto ret = std::memset(buff1, c, n);
+    auto ft_ret = ::ft_memset(buff2, c, n);
 
-    assert(!memcmp(systemCall, betonicCall, size));
+    return !std::memcmp(ret, ft_ret, n * sizeof(T));
+}
+
+void test_memset_t::run()
+{
+    assert(test_one<11>("Hello World!", 'a'), "\"Hello World!\" 'a' 11");
+    assert(test_one<1>("Hello World!", 'a'), "\"Hello World!\" 'a' 1");
 }

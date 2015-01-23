@@ -1,26 +1,27 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+#include <cstdlib>
+
+#include "../tests.hpp"
 
 extern "C" {
     char    *ft_strdup(const char *);
 }
 
-static void test_one(const char * str)
+static bool test_one(const char * str)
 {
     char * dup;
     char * ft_dup;
 
     dup = ::strdup(str);
-    ft_dup = ft_strdup(str);
-    assert(strlen(dup) == strlen(ft_dup));
-    assert(!memcmp(str, dup, strlen(dup)));
+    ft_dup = ::ft_strdup(str);
+    bool ok = strlen(dup) == strlen(ft_dup) && !memcmp(str, dup, strlen(dup));
     free(dup);
     free(ft_dup);
+    return ok;
 }
 
-void test_strdup()
+void test_strdup_t::run()
 {
-    test_one("Hello");
-    test_one("");
+    assert(test_one("Hello"), "\"Hello\"");
+    assert(test_one(""), "empty");
 }

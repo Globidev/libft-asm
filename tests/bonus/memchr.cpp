@@ -1,24 +1,18 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+
+#include "../tests.hpp"
 
 extern "C" {
     void    *ft_memchr(const void *, int, size_t);
 }
 
-void test_memchr()
+template <class T, size_t n>
+static bool test_one(const T (&t)[n], int c)
 {
-    char    *systemCall;
-    char    *betonicCall;
-    size_t  size = 20;
-    char    str[] = "Hello World";
+    return ::memchr(t, c, n) == ::ft_memchr(t, c, n);
+}
 
-    systemCall = (char*)memchr(str, 111, size);
-    betonicCall = (char*)ft_memchr(str, 111, size);
-
-    std::cout << (void*)systemCall << std::endl;
-    std::cout << (void*)betonicCall << std::endl;
-
-    if (systemCall && betonicCall)
-        assert(!memcmp(systemCall, betonicCall, size));
+void test_memchr_t::run()
+{
+    assert(test_one("Hello World!", 'o'), "\"Hello World!\" 'o'");
 }

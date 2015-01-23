@@ -1,20 +1,23 @@
 #include <cstring>
-#include <cassert>
-#include <iostream>
+#include <cstdlib>
+
+#include "../tests.hpp"
 
 extern "C" {
     void    ft_memdel(void **);
 }
 
-void test_memdel()
+template <class T, size_t n>
+static bool test_one(const T (&t)[n])
 {
-    char    *str_bet = (char*)malloc(4);
+    T * allocated = (T *)malloc(n * sizeof(T));
 
-    strcpy(str_bet, "lol");
+    std::memcpy(allocated, t, n * sizeof(T));
+    ft_memdel((void**)&allocated);
+    return !allocated;
+}
 
-    ft_memdel((void**)&str_bet);
-
-    std::cout << (void*)str_bet << std::endl;
-
-    assert(!str_bet);
+void test_memdel_t::run()
+{
+    assert(test_one("Hello World!"), "\"Hello World!\"");
 }
