@@ -7,7 +7,7 @@
 
 using namespace std::string_literals;
 static const auto ALL_STRING = "all"s;
-static const auto VERBOSE_FLAG = "--verbose"s;
+static const auto VERBOSE_FLAG = "-v"s;
 
 bool test_base_t::verbose = false;
 
