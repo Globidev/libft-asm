@@ -19,8 +19,6 @@ static bool test_one(const char (&dst)[n], const char * src)
     auto ret = std::strcpy(buff1, src);
     auto ft_ret = ::ft_strcpy(buff2, src);
 
-    debug(ret, ft_ret);
-
     return !strcmp(ret, ft_ret);
 }
 
