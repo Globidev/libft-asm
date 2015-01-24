@@ -41,9 +41,10 @@ struct test_map_t: public base_map_t
         (*this)["memccpy"].reset(new test_memccpy_t);
         (*this)["memdel"].reset(new test_memdel_t);
         (*this)["memchr"].reset(new test_memchr_t);
-        (*this)["memcmp"].reset(new test_memcmp_t);
         (*this)["memalloc"].reset(new test_memalloc_t);
         (*this)["strnew"].reset(new test_strnew_t);
+        (*this)["strchr"].reset(new test_strchr_t);
+        (*this)["memcmp"].reset(new test_memcmp_t);
         (*this)["strcmp"].reset(new test_strcmp_t);
         (*this)["strcpy"].reset(new test_strcpy_t);
         (*this)["strncpy"].reset(new test_strncpy_t);
