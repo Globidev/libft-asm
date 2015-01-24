@@ -24,4 +24,5 @@ void test_strcmp_t::run()
     assert(test("lol", "lolilol"), "\"lol\" \"lolilol\"");
     assert(test("lol\0a", "lol\0b"), "\"lol\\0a\" \"lol\\0b\"");
     assert(test("\200", "\0"), "\"\\200\" \"\\0\"");
+    assert(test("", "lol"), "\"\" \"lol\"");
 }
