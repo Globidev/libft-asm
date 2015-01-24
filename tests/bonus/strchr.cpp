@@ -10,7 +10,9 @@ extern "C" {
 static bool test_one(const char *s, int i)
 {
     auto ret = std::strchr(s, i);
+    // std::cout << "ret : ";
     auto ft_ret = ::ft_strchr(s, i);
+    // std::cout << "ft_ret : ";
 
     if (ret && ft_ret)
         return !strcmp(ret, ft_ret);
@@ -24,4 +26,6 @@ void test_strchr_t::run()
 {
     assert(test_one("Hello World!", 'r'), "\"Hello World!\" \"r\"");
     assert(test_one("Hello World!", 'z'), "\"Hello World!\" \"z\"");
+    assert(test_one("Hello World!", '\0'), "\"Hello World!\" \"\\0\"");
+    assert(test_one("Hell\200o World!", '\200'), "\"Hell\200o World!\" \"\\200\"");
 }
