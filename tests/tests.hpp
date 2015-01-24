@@ -38,3 +38,4 @@ ADD_TEST(test_memalloc_t);
 ADD_TEST(test_strnew_t);
 ADD_TEST(test_strncpy_t);
 ADD_TEST(test_lstnew_t);
+ADD_TEST(test_strchr_t);
