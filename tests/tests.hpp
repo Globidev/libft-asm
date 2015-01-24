@@ -40,3 +40,4 @@ ADD_TEST(test_strcmp_t);
 ADD_TEST(test_strcpy_t);
 ADD_TEST(test_strncpy_t);
 ADD_TEST(test_lstnew_t);
+ADD_TEST(test_lstadd_t);
