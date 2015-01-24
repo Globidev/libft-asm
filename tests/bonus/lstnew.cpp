@@ -51,7 +51,7 @@ static bool test_three(const T (&src)[src_n])
 
 void test_lstnew_t::run()
 {
-    assert(test_one("content test"), "Element: 'content test'");
-    assert(test_two("size test"), "Element: 'size test'");
-    assert(test_three("next test"), "Element: 'next test'");
+    assert(test_one("Content Test"), "Element: 'Content Test'");
+    assert(test_two("Size Test"), "Element: 'Size Test'");
+    assert(test_three("Next Test"), "Element: 'Next Test'");
 }

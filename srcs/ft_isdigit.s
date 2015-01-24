@@ -1,24 +1,25 @@
 section .text
 global _ft_isdigit
 
+; int (int c)
+;         |
+;         v
+;        rdi
+
 _ft_isdigit:
-    push    rdi
     cmp     rdi, '0'
     jge     check_last
-    jmp     set_false
+    jmp     ret_false
 
 check_last:
     cmp     rdi, '9'
-    jle     set_true
-    jmp     set_false
+    jle     ret_true
+    jmp     ret_false
 
-set_true:
-    mov     rax, 1
-    jmp     return
+ret_true:
+    mov     rax,    1
+    ret
 
-set_false:
-    mov     rax, 0
-
-return:
-    pop     rdi
+ret_false:
+    mov     rax,    0
     ret

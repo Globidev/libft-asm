@@ -1,17 +1,20 @@
 section .text
 global _ft_bzero
 
+; void (void * mem, size_t len)
+;              |            |
+;              v            v
+;             rdi          rsi
+
 _ft_bzero:
-    push    rdi
-    test    rsi, rsi
-    je      return
-    mov     rcx, rsi
 
 l1:
-    mov     byte [rdi], 0
-    inc     rdi
-    loop    l1
+    cmp     rsi,        0   ; while (len != 0)
+    je      end
+    mov     byte [rdi], 0   ; *mem = 0
+    inc     rdi             ; ++mem
+    dec     rsi             ; --len
+    jmp     l1
 
-return:
-    pop     rdi
+end:
     ret
