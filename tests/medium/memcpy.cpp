@@ -16,7 +16,7 @@ static bool test_one(const T (&src)[src_n], const T * to_cpy)
     std::memcpy(buff2, src, src_n * sizeof(T));
 
     auto ret = std::memcpy(buff1, to_cpy, n * sizeof(T));
-    auto ft_ret = std::memcpy(buff2, to_cpy, n * sizeof(T));
+    auto ft_ret = ::ft_memcpy(buff2, to_cpy, n * sizeof(T));
 
     return !memcmp(ret, ft_ret, n * sizeof(T));
 }
@@ -24,4 +24,5 @@ static bool test_one(const T (&src)[src_n], const T * to_cpy)
 void test_memcpy_t::run()
 {
     assert(test_one<11>("Hello World", "lolilolilol"), "\"Hello World\" \"lolilolilol\" 11");
+    assert(test_one<1>("Hello World", ""), "\"Hello World\" empty 1");
 }
