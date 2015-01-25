@@ -51,6 +51,7 @@ struct test_map_t: public base_map_t
         (*this)["strncpy"].reset(new test_strncpy_t);
         (*this)["lstnew"].reset(new test_lstnew_t);
         (*this)["lstadd"].reset(new test_lstadd_t);
+        (*this)["atoi"].reset(new test_atoi_t);
     }
 
     void show_usage(const std::string & prog_name) const
