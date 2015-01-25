@@ -3,16 +3,16 @@
 #include "../tests.hpp"
 
 extern "C" {
-    int		ft_strcmp(const char *, const char *);
+    int     ft_strcmp(const char *, const char *);
 }
 
 template <class T, size_t n, size_t m>
 static bool test(const T (&t1)[n], const T (&t2)[m])
 {
-	int		ret = ::strcmp(t1, t2);
-	int		ft_ret = ::ft_strcmp(t1, t2);
+    int     ret = ::strcmp(t1, t2);
+    int     ft_ret = ::ft_strcmp(t1, t2);
 
-	debug(ret, ft_ret);
+    debug(ret, ft_ret);
 
     return (ret == ft_ret);
 }
