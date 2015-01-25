@@ -10,9 +10,7 @@ extern "C" {
 static bool test_one(const char *s, int i)
 {
     auto ret = std::strchr(s, i);
-    // std::cout << "ret : ";
     auto ft_ret = ::ft_strchr(s, i);
-    // std::cout << "ft_ret : ";
 
     if (ret && ft_ret)
         return !strcmp(ret, ft_ret);
