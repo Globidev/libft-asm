@@ -1,18 +1,22 @@
 section .text
 global _ft_tolower
 
+; int (int c)
+;         |
+;         v
+;        rdi
+
 _ft_tolower:
-    mov     r8,     rdi
-    cmp     r8,     65
+    cmp     rdi,     'A'
     jge     step1
     jmp     return
 
 step1:
-    cmp     r8,     90
+    cmp     rdi,     'Z'
     ja      return
-    add     r8,     32
+    add     rdi,     32
     jmp     return
 
 return:
-    mov     rax,    r8
+    mov     rax,    rdi
     ret
