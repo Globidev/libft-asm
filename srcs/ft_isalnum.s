@@ -10,12 +10,14 @@ extern _ft_isdigit
 ;        rdi
 
 _ft_isalnum:
-    push    rdi         ; save rdi across calls
+    push    rbx
+    mov     rbx,    rdi ; save rdi across calls
     call    _ft_isalpha
-    pop     rdi         ; popping rdi back
-    cmp     rax,    0
-    je      end         ; if non alpha -> ret 0
+    cmp     rax,    1
+    je      end         ; return if alpha
+    mov     rdi,    rbx ; restore rdi before call
     call    _ft_isdigit
 
 end:
+    pop rbx
     ret
