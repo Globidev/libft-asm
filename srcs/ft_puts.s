@@ -1,39 +1,57 @@
+section .data
+
+null_str    db      "(null)",0xa
+null_len    equ     $-null_str
+endl        db      0xa
+
 section .text
+
 global _ft_puts
 
+; int (const char * str)
+;                    |
+;                    v
+;                   rdi
+
 _ft_puts:
-    cmp     rdi,    0
-    je      return
-    push    rdi
-    push    rsi
-    mov     rsi,    rdi
-    mov     rdi,    1
-    mov     rdx,    0
-    mov     rax,    0x2000004
+    cmp     rdi,    0   ; puts displays "(null)" when passed NULL
+    je      null
+    mov     rdx,    0   ; rdx will serve as the string length
 
-get_len:
-    cmp     byte [rsi + rdx], 0
-    je      display
+strlen:
+    cmp     byte [rdi + rdx], 0
+    je      write_str
     inc     rdx
-    jmp     get_len
+    jmp     strlen
 
-display:
+write_str:
+    mov     rax,    0x2000004   ; write(
+    mov     rsi,    rdi         ;   STDOUT_FILENO,
+    mov     rdi,    1           ;   str,
+                                ;   len (computed above))
     syscall
-    cmp     rax,    -1
+    cmp     rax,    -1          ; write failed
     je      return
-    push    10
-    mov     rsi,    rsp
-    mov     rdi,    1
-    mov     rdx,    1
-    mov     rax,    0x2000004
+
+write_nl:
+    mov     rax,    0x2000004   ; write(
+    mov     rdi,    1           ;   STDOUT_FILENO,
+    mov     rsi,    endl        ;   "\n",
+    mov     rdx,    1           ;   1)
     syscall
-    pop     r8
-    cmp     rax,    -1
+    cmp     rax,    -1          ; write failed
     je      return
-    mov     rax,    10
+    jmp     ret_success
+
+null:
+    mov     rax,    0x2000004   ; write(
+    mov     rdi,    1           ;   STDOUT_FILENO,
+    mov     rsi,    null_str    ;   null_str,
+    mov     rdx,    null_len    ;   null_len)
+    syscall
+
+ret_success:
+    mov     rax,    10          ; always ret 10 on success
 
 return:
-    pop     rsi
-    pop     rdi
     ret
-
