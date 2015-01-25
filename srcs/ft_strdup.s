@@ -12,7 +12,7 @@ extern  _ft_strlen
 _ft_strdup:
     cmp     rdi,    0       ; if str is null
     je      ret_null        ; return null
-    push    rbx             ; rbx -> str
+    push    rbx             ; storing str in a non volatile
     mov     rbx,    rdi
     call    _ft_strlen
 

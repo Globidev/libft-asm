@@ -1,19 +1,20 @@
 section .text
 global _ft_memset
 
+; void * (void * dest, int c, size_t len)
+;                 |        |          |
+;                 v        v          v
+;                rdi      rsi        rdx
+
 _ft_memset:
-    test    rdx,    rdx
-    je      return
+    cmp     rdx,    0
+    je      end
+    mov     r8,     rdi ; saving dest to be restored later
     mov     rax,    rsi
-    mov     rcx,    rdx
-    push    rdi
-    cld
-    rep     stosb
-    pop     rdi
+    mov     rcx,    rdx ; setting len iterations
+    cld                 ; ++rdi at each iteration
+    rep     stosb       ; *rdi = c
 
-return:
-    mov     rax,    rdi
+end:
+    mov     rax,    r8
     ret
-
-
-; stosb ==> put al in rdi, cld to inc rdi, then rep

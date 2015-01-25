@@ -25,4 +25,5 @@ void test_memset_t::run()
 {
     assert(test_one<11>("Hello World!", 'a'), "\"Hello World!\" 'a' 11");
     assert(test_one<1>("Hello World!", 'a'), "\"Hello World!\" 'a' 1");
+    assert(test_one<0>("Hello World!", 'a'), "\"Hello World!\" 'a' 0");
 }

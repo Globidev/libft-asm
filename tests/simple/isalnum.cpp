@@ -4,23 +4,20 @@ extern "C" {
     int ft_isalnum(int c);
 }
 
+static bool test_range(int start, int end)
+{
+    bool ok = true;
+    for (int i = start; i < end; ++i)
+        ok &= (std::isalnum(i) == ::ft_isalnum(i));
+    return ok;
+}
+
 void test_isalnum_t::run()
 {
     constexpr auto char_max = 1 << sizeof(char) * 8;
 
-    bool all_chars = true;
-    for (int i = 0; i <= all_chars; i++)
-        all_chars &= (std::isalnum(i) == ::ft_isalnum(i));
-    assert(all_chars, "int from 0 to " + std::to_string(char_max));
-
-    bool higher_values = true;
-    for (int i = char_max; i <= char_max * 2; i++)
-        higher_values &= (std::isalnum(i) == ::ft_isalnum(i));
-    assert(higher_values, "int from " + std::to_string(char_max) +
-                          " to " + std::to_string(char_max * 2));
-
-    bool negative_values = true;
-    for (int i = -char_max; i <= 0; i++)
-        negative_values &= (std::isalnum(i) == ::ft_isalnum(i));
-    assert(negative_values, "int from " + std::to_string(-char_max) + " to 0");
+    assert(test_range(0, char_max), "int from 0 to " + std::to_string(char_max));
+    assert(test_range(char_max, char_max * 2), "int from " + std::to_string(char_max) +
+                                               " to " + std::to_string(char_max * 2));
+    assert(test_range(-char_max, 0), "int from " + std::to_string(-char_max) + " to 0");
 }

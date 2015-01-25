@@ -18,7 +18,7 @@ ASSEMBLER		=	nasm
 COMPILER		=	g++
 AFLAGS			=	-f macho64
 CFLAGS			=	-Wall -Wextra -Werror -O3 -std=c++1y -c
-LFLAGS			=	-L. -l$(LIB_NAME)
+LFLAGS			=	-L. -l$(LIB_NAME) -Wl,-no_pie
 
 OBJ_SUB_DIRS	=	$(dir $(OBJ))
 OBJ_SUB_DIRS	+=	$(dir $(TESTS_OBJ))
