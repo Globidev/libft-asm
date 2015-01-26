@@ -7,7 +7,6 @@ global _ft_strcmp
 ;                   rdi              rsi
 
 _ft_strcmp:
-    mov     rax,    0
     mov     r8,     rdi
     or      r8,     rsi ; if (!s1 && !s2)
     cmp     r8,     0   ; return 0
