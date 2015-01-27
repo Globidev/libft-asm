@@ -4,24 +4,24 @@ global _ft_memalloc
 extern  _ft_bzero
 extern  _malloc
 
-; rdi -> size_t size
+; void * (size_t size)
+;                 |
+;                 v
+;                rdi
 
 _ft_memalloc:
-    push    rdi                ; Push rdi for save him before _malloc
+    push    rbx         ; using rbx as a non volatile to store the size
+    mov     rbx,    rdi
     call    _malloc
-    cmp     rax, 0             ; Check if _malloc works
-    je      ret_fail
-    pop     rsi                ; Recup rdi in rsi
-    mov     rdi, rax           ; Put rax in rdi for _ft_bzero
-    push    rax                ; Push rax for save him before _ft_bzero
+    cmp     rax,    0   ; malloc failed
+    je      end
+    mov     rsi,    rbx ; size as the second argument of bzero
+    mov     rbx,    rax ; saving malloc return address
+    mov     rdi,    rax ; malloc return address as the first argument of bzero
     call    _ft_bzero
-    pop     rax                ; Recup rax
+    mov     rax,    rbx ; restoring the return address to be returned here
 
-ret1:
+end:
+    pop rbx
     ret
-
-ret_fail:
-    pop     r8                 ; Recup rdi if malloc fail
-    ret
-
 

@@ -12,8 +12,6 @@ static bool test(const T (&t1)[n], const T (&t2)[m])
     int     ret = ::strcmp(t1, t2);
     int     ft_ret = ::ft_strcmp(t1, t2);
 
-    debug(ret, ft_ret);
-
     return (ret == ft_ret);
 }
 

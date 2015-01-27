@@ -1,38 +1,30 @@
 section .text
 global _ft_memccpy
 
-; rdi -> void *dst
-; rsi -> const void *restrict src
-; rdx -> int c
-; rcx -> size_t n
+; void * (void * dst, const void * src, int c, size_t len)
+;                 |                 |       |          |
+;                 v                 v       v          v
+;                rdi               rsi     rdx        rcx
 
 _ft_memccpy:
-    push    rdi
-    push    rsi
-    mov     rax,    rdi                 ; Set return Value
-    cmp     rcx,    0                   ; Check rcx
-    je      ret_fail
 
 copy:
+    cmp     rcx,    0           ; len char copied
+    je      ret_null            ; -> return 0
     mov     r8,     [rsi]
-    mov     byte [rdi], r8b             ; Copy rsi -> rdi
-    inc     rdi
-    cmp     [rsi],  dl                  ; Search c
+    mov     byte [rdi], r8b     ; *dst = *src
+    cmp     [rsi],  dl          ; search c
     je      ret_sucess
-    dec     rcx
-    cmp     rcx,    0                   ; Check rcx
-    je      ret_fail
-    inc     rsi
+    inc     rdi                 ; ++dst
+    inc     rsi                 ; ++src
+    dec     rcx                 ; --len
     jmp     copy
 
-ret_fail:
+ret_null:
     mov     rax,    0
-    pop     rsi
-    pop     rdi
     ret
 
 ret_sucess:
+    inc     rdi
     mov     rax,    rdi
-    pop     rsi
-    pop     rdi
     ret

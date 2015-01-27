@@ -1,49 +1,47 @@
 section .text
 global _ft_strncmp
 
+; int (const char * s1, const char * s2, size_t len)
+;                    |                |          |
+;                    v                v          v
+;                   rdi              rsi        rdx
+
 _ft_strncmp:
-    mov     rax,    0
-    cmp     rdi,    0
-    je      return
-    cmp     rsi,    0
-    je      return
-    cmp     rdx,    0
-    je      return
+    mov     r8,     rdi
+    or      r8,     rsi ; if (!s1 && !s2)
+    cmp     r8,     0   ; return 0
+    je      equal
 
 cmp_loop:
+    cmp     rdx,    0
+    je      equal
     mov     r8,     [rdi]
-    mov     r9,     [rsi]
     cmp     r8,     0
     je      bcmp
-    cmp     r9,     0
+    cmp     byte [rsi],  0
     je      bcmp
-    cmp     r8b,    r9b
+    cmp     r8b,    byte [rsi]
     ja      greater
     jb      lower
-    dec     rdx
-    cmp     rdx,    0
-    je      bcmp
     inc     rdi
     inc     rsi
+    dec     rdx
     jmp     cmp_loop
 
-equal:
-    mov     rax,    0
-    jmp     return
-
-greater:
-    mov     rax,    1
-    jmp     return
-
-lower:
-    mov     rax,    -1
-    jmp     return
-
 bcmp:
-    cmp     r8b,    r9b
+    cmp     r8b,    byte [rsi]
     ja      greater
     jb      lower
     je      equal
 
-return:
+equal:
+    mov     rax,    0
+    ret
+
+greater:
+    mov     rax,    1
+    ret
+
+lower:
+    mov     rax,    -1
     ret

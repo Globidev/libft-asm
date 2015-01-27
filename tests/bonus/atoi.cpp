@@ -12,7 +12,7 @@ static bool test(const T (&t1)[n])
 	int		ret = ::atoi(t1);
 	int		ft_ret = ::ft_atoi(t1);
 
-	debug(ret, ft_ret);
+	// debug(ret, ft_ret);
 
     return (ret == ft_ret);
 }
