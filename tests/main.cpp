@@ -50,6 +50,7 @@ struct test_map_t: public base_map_t
         (*this)["strncmp"].reset(new test_strncmp_t);
         (*this)["strcpy"].reset(new test_strcpy_t);
         (*this)["strncpy"].reset(new test_strncpy_t);
+        (*this)["strncat"].reset(new test_strncat_t);
         (*this)["lstnew"].reset(new test_lstnew_t);
         (*this)["strdel"].reset(new test_strdel_t);
         (*this)["strstr"].reset(new test_strstr_t);
