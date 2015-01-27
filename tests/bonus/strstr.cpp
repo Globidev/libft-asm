@@ -30,4 +30,5 @@ void test_strstr_t::run()
     assert(test_one("Hello World!", ""), "\"Hello World!\" \"\"");
     assert(test_one("", ""), "\"\" \"\"");
     assert(test_one("", "str"), "\"\" \"str\"");
+
 }

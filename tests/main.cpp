@@ -42,6 +42,7 @@ struct test_map_t: public base_map_t
         (*this)["memdel"].reset(new test_memdel_t);
         (*this)["memchr"].reset(new test_memchr_t);
         (*this)["memalloc"].reset(new test_memalloc_t);
+        (*this)["memmove"].reset(new test_memmove_t);
         (*this)["strnew"].reset(new test_strnew_t);
         (*this)["strchr"].reset(new test_strchr_t);
         (*this)["memcmp"].reset(new test_memcmp_t);
@@ -49,10 +50,13 @@ struct test_map_t: public base_map_t
         (*this)["strncmp"].reset(new test_strncmp_t);
         (*this)["strcpy"].reset(new test_strcpy_t);
         (*this)["strncpy"].reset(new test_strncpy_t);
+        (*this)["strncat"].reset(new test_strncat_t);
         (*this)["lstnew"].reset(new test_lstnew_t);
+        (*this)["strdel"].reset(new test_strdel_t);
         (*this)["strstr"].reset(new test_strstr_t);
         (*this)["lstadd"].reset(new test_lstadd_t);
         (*this)["atoi"].reset(new test_atoi_t);
+        (*this)["strclr"].reset(new test_strclr_t);
     }
 
     void show_usage(const std::string & prog_name) const
