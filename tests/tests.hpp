@@ -48,4 +48,4 @@ ADD_TEST(test_strchr_t);
 ADD_TEST(test_strdel_t);
 ADD_TEST(test_strstr_t);
 ADD_TEST(test_atoi_t);
-// ADD_TEST(test_strclr_t);
+ADD_TEST(test_strclr_t);

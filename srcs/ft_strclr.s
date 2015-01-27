@@ -7,3 +7,4 @@ _ft_strclr:
 	call	_ft_strlen
 	mov		rsi,	rax
 	call	_ft_bzero
+    ret
