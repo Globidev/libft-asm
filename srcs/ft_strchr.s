@@ -8,7 +8,6 @@ _ft_strchr:
     mov     rax,           0                ;move NULL in rax for return
     cmp     rdi,           0                ;check if rdi is NULL
     je      return                          ;if rdi is NULL return
-    push    rdi                             ;save rdi on stack
 
 l1:
     cmp     byte [rdi],    sil              ;cmp current byte
@@ -20,12 +19,10 @@ l1:
 
 c_not_found:
     mov     rax,          0                 ;if c not found return 0
-    pop     rdi
     jmp     return
 
 c_found:
     mov     rax,          rdi               ;move current byte of rdi in rax
-    pop     rdi                             ;restore rdi
 
 return:
     ret
