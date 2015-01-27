@@ -1,65 +1,52 @@
 section .text
 global _ft_strstr
 
-extern  _ft_puts
-
-; rdi -> char *s1
-; rsi -> char *s2
+; char * (const char *s1, const char *s2)
+;                     |               |
+;                     v               v
+;                    rdi             rsi
 
 _ft_strstr:
-    mov     rax,           0                ;move NULL in rax for return
-    cmp     rdi,           0                ;check if rdi is NULL
-    je      s1_empty                        ;if rdi is NULL check rsi
-    cmp     byte [rsi],    0                ;check if rsi is NULL
-    je      s2_empty                        ;if rsi is null return s1
-    mov     r11,           [rsi]
+    cmp     byte [rsi], 0               ;if *s2 == 0, return s1
+    je      found
+    cmp     byte [rdi], 0               ;if *s1 == 0, return 0
+    je      not_found
 
-l1:
-    mov     r10,        [rdi]
-    cmp     r10b,       r11b                ;cmp s1 8bits & s2 8bits
-    je      c_found                         ;if s1 == s2
-    cmp     r10b,       0                   ;cmp s2 8bits to NULL
-    je      return                          ;if s1 is NULL return
-    inc     rdi                             ;increment s1
-    jmp     l1                              ;loop on every byte of string
+search_s1:
+    mov     r8,         [rdi]
+    mov     r9,         [rsi]
+    cmp     byte [rdi], r9b             ;if *s1 == *s2, search for s2
+    je      init_search_s2
+    cmp     byte [rdi], 0               ;if *s1 == 0, s2 not found
+    je      not_found
+    inc     rdi
+    jmp     search_s1
 
-find_s2:
-    inc     r8                             ;inc r8 (s1)
-    inc     r9                             ;inc r9 (s2)
-    mov     rdx,        [r8]               ;s1 current char in rdx
-    mov     rcx,        [r9]               ;s2 current char in rcx
-    cmp     ch,         '\0'               ;if end of s2 return s2 found
-    je      s2_found
-    cmp     dh,         '\0'               ;if end of s1 return (s2 not found)
-    je      return
-    cmp     dh,         ch                 ;compare s1 & s2
-    jne     l1                             ;if not equal return in l1
-    ; dislay
-    push    r12
-    mov     r12,    rdi
-    mov     rdi,    r9
-    call    _ft_puts
-    mov     rdi,    r12
-    pop     r12
-    ; display end
-    jmp     find_s2                        ;if not, continue cmp
+init_search_s2:
+    mov     rdx,        rdi
+    mov     rcx,        rsi
+    jmp     search_s2
 
-c_found:
-    mov     r8,         rdi                ;create tmp of s1
-    mov     r9,         rsi                ;create tmp of s2
-    inc     rdi                            ;inc s1
-    jmp     find_s2                        ;try remaining of s2
+ret_search_s1:
+    inc     rdi
+    jmp     search_s1
 
-s2_found:
-    mov     rax,          rdi
-    jmp     return
+search_s2:
+    inc     rdx                         ;inc *s1
+    inc     rcx                         ;inc *s2
+    mov     r11,        [rcx]
+    cmp     r11b,       0               ;if *s2 == 0, s2 found
+    je      found
+    cmp     byte [rdx], r11b            ;if *s1 != *s2, return to search_s1
+    jne     ret_search_s1
+    cmp     byte [rdx], 0               ;if *s1 == 0, s2 not found
+    je      not_found
+    jmp     search_s2
 
-s1_empty:
-    cmp     rsi,          0                ;if s2 empty to, return s1
-    jne     return
+found:
+    mov     rax,        rdi
+    ret
 
-s2_empty:
-    mov     rax,          rdi               ;return ptr of s1
-
-return:
+not_found:
+    mov     rax,        0
     ret
