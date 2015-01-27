@@ -1,18 +1,20 @@
 section .text
-global _ft_strcmp
+global _ft_strncmp
 
-; int (const char * s1, const char * s2)
-;                    |                |
-;                    v                v
-;                   rdi              rsi
+; int (const char * s1, const char * s2, size_t len)
+;                    |                |          |
+;                    v                v          v
+;                   rdi              rsi        rdx
 
-_ft_strcmp:
+_ft_strncmp:
     mov     r8,     rdi
     or      r8,     rsi ; if (!s1 && !s2)
     cmp     r8,     0   ; return 0
     je      equal
 
 cmp_loop:
+    cmp     rdx,    0
+    je      equal
     mov     r8,     [rdi]
     cmp     r8,     0
     je      bcmp
@@ -23,6 +25,7 @@ cmp_loop:
     jb      lower
     inc     rdi
     inc     rsi
+    dec     rdx
     jmp     cmp_loop
 
 bcmp:
@@ -42,4 +45,3 @@ greater:
 lower:
     mov     rax,    -1
     ret
-

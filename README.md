@@ -28,7 +28,7 @@ r15              | r15d           | r15w           | r15b          | :x:        
 
 :warning: When using a non volatile register, be sure to save its previous value (push it on the stack) before changing it and be sure to restore it after a `ret`
 
-:warning: Do not count on volatile registers to keep their values after a `call_`
+:warning: Do not count on volatile registers to keep their values after a `call` or a `syscall`
 
 ## Contributing
 - Use 4 spaces to indent (for both asm and c++ code)

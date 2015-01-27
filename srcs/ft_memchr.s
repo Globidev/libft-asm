@@ -1,29 +1,25 @@
 section .text
 global _ft_memchr
 
+; void * (void * s, int c, size_t len)
+;                |      |          |
+;                v      v          v
+;               rdi    rsi        rdx
+
 _ft_memchr:
-    push    rdi
-    cmp     rdi,    0
-    je      ret_null
+search:
     cmp     rdx,    0
     je      ret_null
-    mov     r10,    0
-
-search:
-    cmp     r10,    rdx
-    jg      ret_null
-    cmp     byte [rdi],  0
-    je      ret_null
-    mov     rax,    rdi
     cmp     [rdi],  sil
-    je      return
+    je      end
     inc     rdi
-    inc     r10
+    dec     rdx
     jmp     search
 
 ret_null:
     mov     rax,    0
+    ret
 
-return:
-    pop     rdi
+end:
+    mov     rax,    rdi
     ret

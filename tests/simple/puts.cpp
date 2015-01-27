@@ -46,4 +46,5 @@ void test_puts_t::run()
     assert(test_one(wtf.c_str()), "random string of " + std::to_string(BUFF_MAX_SIZE) + " numbers");
 
     assert(test_one("Hello\0World!"), "\"Hello\\0World!\"");
+    assert(test_one(0), "\"Hello\\0World!\"");
 }

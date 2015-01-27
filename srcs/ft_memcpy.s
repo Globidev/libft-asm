@@ -1,25 +1,16 @@
 section .text
 global _ft_memcpy
 
-; rcx -> number of rep
-; rsi -> src
-; rdi -> dest
-; rep movsb
-; rdx -> size_t n
+; void * (void * dest, const void * src, size_t len)
+;                 |                  |           |
+;                 v                  v           v
+;                rdi                rsi         rdx
 
 _ft_memcpy:
-    push    rdi
-    push    rsi
-    mov     rax,    rdi ;set return value
-    cmp     rdx,    0   ;check nbr of rep
-    je      ret1
-    mov     rcx,    rdx ;set rcx
+    mov     rax,    rdi ; set return value
+    mov     rcx,    rdx ; setting len iterations
+    cld                 ; ++rdi and ++rsi at each iteration
+    rep     movsb       ; *rdi = *rsi
 
-copy:
-    cld
-    rep     movsb       ;betonic memcpy
-
-ret1:
-    pop     rsi
-    pop     rdi
+end:
     ret

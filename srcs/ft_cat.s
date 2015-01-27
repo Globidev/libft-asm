@@ -1,38 +1,46 @@
 section .data
 
-buff_size   equ     1024
+buff_size   equ     4096
+
+%define STDOUT_FILENO 1
+%define SYS_READ 0x2000003
+%define SYS_WRITE 0x2000004
 
 section .text
 global _ft_cat
 
+; void (int fd)
+;           |
+;           v
+;          rdi
+
 _ft_cat:
-    push    rdi
-    push    rsi
-    push    r15
-    sub     rsp,    buff_size       ; add buffer size to stack top
-    mov     rsi,    rsp             ; buffer zone in rsi
-    add     rsp,    buff_size       ; restore stack pointer
-    mov     r15,    rdi
+    push    rbx
+    mov     rbx,    rdi             ; saving fd in rbx (non volatile)
+    push    rbp
+    mov     rbp,    rsp             ; allocating char[buff_size] on the stack
+    sub     rbp,    buff_size       ; rbp points to the buffer (non volatile)
 
 read:
-    mov     rdi,    r15
-    mov     rdx,    buff_size       ; size to read in rdx
-    mov     rax,    0x2000003       ; read in rax
-    syscall                         ; call read
-    cmp     rax,    0               ; if read failed / eof ->
-    jle     return                  ; abort
+    mov     rax,    SYS_READ        ; read(
+    mov     rdi,    rbx             ;   fd,
+    mov     rsi,    rbp             ;   buff,
+    mov     rdx,    buff_size       ;   buff_size)
+    syscall
+    cmp     rax,    0               ; read failed
+    jle     end
 
 write:
-    mov     rdi,    1               ; fd in rdi
-    mov     rdx,    rax             ; size to write in rdx
-    mov     rax,    0x2000004       ; write in rax
-    syscall                         ; rsi is fine, call write
-    cmp     rax,    0               ; if write failed
-    jle     return                  ; abort
+    mov     rdx,    rax             ; write(
+    mov     rax,    SYS_WRITE       ;   STDOUT_FILENO,
+    mov     rdi,    STDOUT_FILENO   ;   buff,
+    mov     rsi,    rbp             ;   size_read)
+    syscall
+    cmp     rax,    0               ; write failed
+    jle     end
     jmp     read                    ; read again
 
-return:
-    pop     r15
-    pop     rsi
-    pop     rdi
+end:
+    pop rbp
+    pop rbx
     ret
