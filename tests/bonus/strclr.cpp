@@ -3,13 +3,13 @@
 #include "../tests.hpp"
 
 extern "C" {
-    void	ft_strclr(char *);
+    void    ft_strclr(char *);
 }
 
 static bool test_one()
 {
-    char	str[] = "Lolilol";
-    char	str2[] = "Lolilol";
+    char    str[] = "lolilol";
+    char    str2[] = "lolilol";
 
     bzero(str, 7);
     ft_strclr(str2);
