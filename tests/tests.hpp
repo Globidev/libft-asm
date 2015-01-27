@@ -35,6 +35,7 @@ ADD_TEST(test_memdel_t);
 ADD_TEST(test_memchr_t);
 ADD_TEST(test_memcmp_t);
 ADD_TEST(test_memalloc_t);
+ADD_TEST(test_memmove_t);
 ADD_TEST(test_strnew_t);
 ADD_TEST(test_strcmp_t);
 ADD_TEST(test_strncmp_t);
