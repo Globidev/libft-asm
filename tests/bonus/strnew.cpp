@@ -1,4 +1,5 @@
 #include <cstring>
+#include <limits>
 
 #include "../tests.hpp"
 
@@ -20,4 +21,5 @@ static bool test_one()
 void test_strnew_t::run()
 {
     assert(test_one<42>(), "Allocate 42 bytes");
+    assert(ft_strnew(std::numeric_limits<size_t>::max()) == nullptr, "Too much");
 }

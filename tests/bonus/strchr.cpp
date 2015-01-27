@@ -26,4 +26,6 @@ void test_strchr_t::run()
     assert(test_one("Hello World!", 'z'), "\"Hello World!\" \"z\"");
     assert(test_one("Hello World!", '\0'), "\"Hello World!\" \"\\0\"");
     assert(test_one("Hell\200o World!", '\200'), "\"Hell\200o World!\" \"\\200\"");
+    assert(test_one("", '?'), "empty '?'");
+    assert(test_one("lol", 'l'), "\"lol\" 'l'");
 }

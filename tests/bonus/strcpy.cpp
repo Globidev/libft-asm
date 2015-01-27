@@ -25,4 +25,6 @@ static bool test_one(const char (&dst)[n], const char * src)
 void test_strcpy_t::run()
 {
     assert(test_one("Hello World!", "lol"), "\"Hello World!\" \"lol\"");
+    assert(test_one("abc", "lol"), "\"abc\" \"lol\"");
+    assert(test_one("loul", "ab\0c"), "\"loul\" \"ab\\0c\"");
 }

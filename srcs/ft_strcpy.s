@@ -1,21 +1,31 @@
 section .text
 global _ft_strcpy
 
-extern _ft_strlen
+; char * (char * dst, const char * src)
+;                 |                 |
+;                 v                 v
+;                rdi               rsi
 
 _ft_strcpy:
-    push    r12
-    mov     r12,    rdi
-    mov     rdi,    rsi
-    call    _ft_strlen
-    cmp     rax,    0
-    je      return
-    add     rax,    1
-    mov     rcx,    rax
-    mov     rdi,    r12
+    mov     r8,     rdi
+    or      r8,     rsi ; if (!s1 && !s2)
+    cmp     r8,     0   ; return 0
+    je      ret_null
     mov     rax,    rdi
-    rep     movsb
-    pop     r12
 
-return:
+cpy:
+    cmp     byte [rsi],  0
+    je      end
+    mov     r8,     [rsi]
+    mov     [rdi],  r8b
+    inc     rdi
+    inc     rsi
+    jmp     cpy
+
+end:
+    mov     byte [rdi],  0
+    ret
+
+ret_null:
+    mov     rax,    0
     ret
