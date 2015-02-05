@@ -1,6 +1,11 @@
 section .text
 global _ft_atoi
 
+; int (const char * str)
+;                    |
+;                    v
+;                   rdi
+
 _ft_atoi:
     mov     rax,    0
     cmp     rdi,    0

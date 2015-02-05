@@ -3,6 +3,12 @@ global _ft_lstnew
 
 extern _malloc, _ft_memcpy
 
+; t_list  *ft_lstnew(const void *content, size_t content_size)
+;                                   |                  |
+;                                   v                  v
+;                                  rdi                rsi
+
+
 _ft_lstnew:
 
     save_content:
