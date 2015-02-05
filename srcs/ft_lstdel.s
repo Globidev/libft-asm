@@ -3,32 +3,37 @@ global _ft_lstdel
 
 extern _free
 
+; void ft_lstdel((t_list **alst, t_deleter del)
+;                           |               |
+;                           v               v
+;                          rdi             rsi
+
 _ft_lstdel:
-    push    rbx                                 ;save rbx on the stack
-    push    rbp                                 ;save rbp on the stack
-    cmp     rdi,            0                   ;return if alst is null
-    je      return
-    mov     rbx,            [rdi]               ;put dereferenced alst in rbx
-    mov     rbp,            rbx                 ;put dereferenced alst in rbp
-    mov     rdi,            [rbx]
+    cmp     rdi,    0           ; if (alst)
+    je      end
+    push    rbx
+    mov     rbx,    rdi         ; rbx -> alst
+    push    rbp
+    mov     rbp,    [rdi]       ; it = *alst
+    push    r12
+    mov     r12,    rsi         ; r12 -> del
 
 lstdel:
-
-    free_content:
-        mov     rbx,        qword [rdi + 16]    ;rbx = current->next
-        call    _free                           ;free current->content element
-
-    free_element:
-        mov     rdi,        rbp                 ;put dereferenced alst in rdi
-        call    _free                           ;free current element
-
-    cmp     rbx,            0                   ;check current->next
-    je      return
-
-    mov     rdi,            [rbx]               ;put next in current
+    cmp     rbp,    0           ; while (it)
+    je      nullify
+    mov     rdi,    [rbp]       ; del(
+    mov     rsi,    [rbp + 8]   ;   it->content,
+    call    r12                 ;   it->content_size)
+    mov     rdi,    rbp         ; temp = it
+    mov     rbp,    [rbp + 16]  ; it = it->next
+    call    _free               ; free(temp)
     jmp     lstdel
 
-return:
+nullify:
+    mov     qword [rbx],    0   ; *alst = 0
+    pop     r12
     pop     rbp
     pop     rbx
+
+end:
     ret
