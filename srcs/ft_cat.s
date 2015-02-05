@@ -27,8 +27,9 @@ read:
     mov     rsi,    rbp             ;   buff,
     mov     rdx,    buff_size       ;   buff_size)
     syscall
+    jc      end
     cmp     rax,    0               ; read failed
-    jle     end
+    je      end
 
 write:
     mov     rdx,    rax             ; write(
@@ -36,8 +37,9 @@ write:
     mov     rdi,    STDOUT_FILENO   ;   buff,
     mov     rsi,    rbp             ;   size_read)
     syscall
+    jc      end
     cmp     rax,    0               ; write failed
-    jle     end
+    je      end
     jmp     read                    ; read again
 
 end:
