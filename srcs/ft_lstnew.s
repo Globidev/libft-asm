@@ -6,12 +6,12 @@ extern _malloc, _ft_memcpy
 _ft_lstnew:
 
     save_content:
-        push    r12
-        mov     r12,    rdi     ;r12->content
+        push    rbx
+        mov     rbx,    rdi     ;rbx->content
 
     save_content_size:
-        push    r13
-        mov     r13,    rsi     ;r13->content_size
+        push    rbp
+        mov     rbp,    rsi     ;rbp->content_size
 
     mov     rdi,        24      ;initialize malloc size
     call    _malloc             ;allocate enough space for list struct
@@ -20,11 +20,13 @@ _ft_lstnew:
     push    rax
 
 get_args:
-    cmp     r13,        0       ;check if content_size is not null
-    je      bzero_next
+    cmp     rbp,        0       ;check if content_size is not null
+    jne     create_elem
+    mov     qword [rax],    0
+    jmp     bzero_next
 
 create_elem:
-    mov     rdi,        r13     ;initialize malloc size
+    mov     rdi,        rbp     ;initialize malloc size
     call    _malloc             ;malloc of content_size
     test    rax,        rax     ;test if malloc succeeded
     je      bzero_next
@@ -32,16 +34,16 @@ create_elem:
     mov     [r8],       rax
     push    r8
     mov     rdi,        rax     ;initialize dest for memcpy
-    mov     rsi,        r12     ;initialize src for memcpy
-    mov     rdx,        r13     ;initialize size for memcpy
+    mov     rsi,        rbx     ;initialize src for memcpy
+    mov     rdx,        rbp     ;initialize size for memcpy
     call    _ft_memcpy
 
 bzero_next:
     pop     rax
-    mov     [rax + 8],        r13
+    mov     [rax + 8],  rbp
     mov     qword [rax + 16], 0 ;set next to 0
 
 return:
-    pop     r13
-    pop     r12
+    pop     rbp
+    pop     rbx
     ret
