@@ -1,8 +1,10 @@
 section .text
 global _ft_strncat
 
-; rdi -> char * dest
-; rsi -> char * src
+; char * (char * dest, const char * src, size_t len)
+;                 |                  |           |
+;                 v                  v           v
+;                rdi                rsi         rdx
 
 _ft_strncat:
     mov     rax,    rdi
