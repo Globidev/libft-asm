@@ -33,8 +33,7 @@ write_str:
     mov     rdi,    STDOUT_FILENO   ;   str,
                                     ;   len (computed above))
     syscall
-    cmp     rax,    -1              ; write failed
-    je      end
+    jc      end
 
 write_nl:
     mov     rax,    SYS_WRITE       ; write(
@@ -42,8 +41,7 @@ write_nl:
     mov     rsi,    endl            ;   "\n",
     mov     rdx,    1               ;   1)
     syscall
-    cmp     rax,    -1              ; write failed
-    je      end
+    jc      end
     jmp     ret_success
 
 null:
@@ -52,8 +50,7 @@ null:
     mov     rsi,    null_str        ;   null_str,
     mov     rdx,    null_len        ;   null_len)
     syscall
-    cmp     rax,    -1              ; write failed
-    je      end
+    jc      end
 
 ret_success:
     mov     rax,    10              ; always ret 10 on success
